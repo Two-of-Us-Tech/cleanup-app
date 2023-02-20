@@ -21,7 +21,7 @@ const LoginImage = styled(Image)(() => ({
 const Login = () => {
   return (
     <LoginScreenContainer>
-      <Text>Login Page</Text>
+      <Text>Login Pages</Text>
       <LoginImage source={loginImageHome} />
     </LoginScreenContainer>
   );
