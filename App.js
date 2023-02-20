@@ -1,5 +1,4 @@
 import { useFonts } from "expo-font";
-import { SafeAreaView } from "react-native";
 import defaultTheme, {
   primaryFontName,
   primaryFontNameBold,
@@ -16,10 +15,9 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    [primaryFontName]: require("./assets/fonts/times-new-regular.ttf"),
-    [primaryFontNameBold]: require("./assets/fonts/times-new-bold.ttf"),
-    [secondaryFontName]: require("./assets/fonts/manrope-regular.ttf"),
-    [secondaryFontNameBold]: require("./assets/fonts/manrope-bold.ttf"),
+    [primaryFontName]: require("./assets/fonts/manrope-bold.ttf"),
+    [primaryFontNameBold]: require("./assets/fonts/manrope-extrabold.ttf"),
+    [secondaryFontName]: require("./assets/fonts/times-new-bold.ttf")
   });
 
   if (!fontsLoaded) {
