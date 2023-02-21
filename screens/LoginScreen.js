@@ -1,4 +1,3 @@
-import { View } from "react-native";
 import styled from "styled-components/native";
 import loginImageHome from "../assets/images/login-image.png";
 import Button from "../components/Button";
@@ -38,7 +37,7 @@ const TextContainer = styled.View(() => ({
   marginHorizontal: 10
 }))
 
-const Login = () => {
+const Login = ({ navigation }) => {
   return (
     <LoginScreenContainer>
       <ContentContainer>
@@ -54,7 +53,7 @@ const Login = () => {
         <ButtonsContainer>
           <Button>Log In</Button>
           <Gap size={8} direction="vertical" />
-          <Button variant="light">
+          <Button variant="light" onPress={() => navigation.navigate("Home")}>
             Find an Event
           </Button>
         </ButtonsContainer>
