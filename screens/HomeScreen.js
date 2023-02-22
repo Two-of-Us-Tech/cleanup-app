@@ -5,6 +5,8 @@ import Gap from "../components/Gap";
 import Input from "../components/Input";
 import StyledScreen from "../components/StyledScreen";
 import Typography from "../components/Typography";
+import googleLogo from "../assets/images/google.png";
+import Divider from "../components/Divider";
 
 const HomeScreenContainer = styled.SafeAreaView(() => ({
   justifyContent: "center",
@@ -20,14 +22,6 @@ const FormContainer = styled.View(() => ({
 const JustifiedButton = styled.View(() => ({
   alignItems: "flex-end",
   padding: 0,
-  transform: "translateX(40px)",
-}));
-
-const Divider = styled.View(({ theme: { colors } }) => ({
-  height: 1,
-  background: colors.darkTransparent,
-  width: "100%",
-  margin: 35,
 }));
 
 const HomeScreen = () => {
@@ -60,20 +54,22 @@ const HomeScreen = () => {
           />
           <Gap size={10} direction="vertical" />
           <JustifiedButton>
-            <Button variant="light" hideBorder fontSize="extrasmall">
+            <Button variant="light" fontSize="extrasmall" hideBorder>
               Forget Password?
             </Button>
           </JustifiedButton>
         </FormContainer>
         <Gap size={30} direction="vertical" />
         <Button>Login</Button>
-        <Divider />
-        <Button variant="white" withShadow>Login with Google</Button>
+        <Divider dividerText="OR" />
+        <Button variant="white" withShadow iconLeft={googleLogo}>
+          Sign in with Google
+        </Button>
         <Gap size={30} direction="vertical" />
         <Typography color="opaqueDark" fontSize="small">
           New Here?
         </Typography>
-        <Button variant="light" onPress={() => {}} >
+        <Button variant="light" onPress={() => {}}>
           Sign Up
         </Button>
       </HomeScreenContainer>

@@ -1,10 +1,10 @@
-import { SafeAreaView, Text } from "react-native";
 import styled from "styled-components";
 
-const ScreenContainer = styled.View(() => ({
+const ScreenContainer = styled.View(({ theme: { colors } }) => ({
   flex: 1,
   position: "relative",
-  overflow: 'hidden'
+  overflow: 'hidden',
+  background: colors.white
 }));
 
 const CircleOne = styled.View(({ theme: { colors } }) => ({

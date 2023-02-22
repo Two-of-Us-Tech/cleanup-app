@@ -51,8 +51,8 @@ const Login = ({ navigation }) => {
           </Typography>
         </TextContainer>
         <ButtonsContainer>
-          <Button>Log In</Button>
-          <Gap size={8} direction="vertical" />
+          <Button>Login</Button>
+          <Gap size={12} direction="vertical" />
           <Button variant="light" onPress={() => navigation.navigate("Home")}>
             Find an Event
           </Button>

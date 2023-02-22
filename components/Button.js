@@ -1,3 +1,4 @@
+import { Image } from "react-native";
 import styled from "styled-components/native";
 
 
@@ -14,12 +15,18 @@ const ButtonContainer = styled.TouchableOpacity(
     paddingHorizontal: 40,
     paddingVertical: 10,
     background: colors.primary,
+    flexDirection:  'row',
+    justifyContent: 'center',
     borderRadius: 5,
     ...($variant === "rounded" && {
       borderRadius: 20,
     }),
     ...($variant === "light" && {
-      background: "transparent"
+      background: "transparent",
+      paddingHorizontal: 0,
+      paddingVertical: 0,
+      position: 'relative',
+      overflow: 'hidden'
     }),
     ...($variant === "white" && {
       background: colors.white,
@@ -35,7 +42,6 @@ const ButtonContainer = styled.TouchableOpacity(
   })
 );
 
-
 const ButtonText = styled.Text(({ theme: { colors, fonts, fontSize }, $variant, $fontSize }) => ({
   color: colors.white,
   fontFamily: fonts.primary,
@@ -48,11 +54,26 @@ const ButtonText = styled.Text(({ theme: { colors, fonts, fontSize }, $variant, 
   }),
 }));
 
-const ButtonBorder = styled.View(({ theme: { colors } }) => ({
-  width: '100%',
-  height: 1,
-  background: colors.primary,
-}));
+const StyledImage = styled.Image(({ isLeft, $fontSize }) => ({
+  marginRight: isLeft ? 10 : 0,
+  marginLeft: !isLeft ? 10 : 0,
+  ...['extraSmall', 'small', 'regular'].includes($fontSize) && {
+    height: 25,
+    width: 25
+  },
+  ...['semiLarge', 'large', 'larger', 'xl'].includes($fontSize) && {
+    height: 30,
+    width: 30,
+  }
+}))
+
+const LightBorder = styled.View(({ theme: { colors }}) => ({
+  position: 'absolute',
+  height: 2,
+  width: '90%',
+  bottom: 0,
+  background: colors.primary
+}))
 
 const Button = ({
   children,
@@ -60,12 +81,18 @@ const Button = ({
   onPress,
   hideBorder = false,
   fontSize = "regular",
-  withShadow = false
+  withShadow = false, 
+  iconLeft = null,
+  iconRight = null
 }) => {
   return (
     <ButtonContainer $variant={variant} onPress={onPress} $withShadow={withShadow}>
-      <ButtonText $variant={variant} $fontSize={fontSize}>{children}</ButtonText>
-      {variant === "light" && !hideBorder && <ButtonBorder />}
+      {iconLeft && <StyledImage isLeft source={iconLeft} $fontSize={fontSize}  />}
+      <ButtonText $variant={variant} $fontSize={fontSize}>
+        {children}
+      </ButtonText>
+      {variant === 'light' && !hideBorder && <LightBorder />}
+      {iconRight && <StyledImage source={iconRight} style={{ width: 25, height: 33 }}/>}
     </ButtonContainer>
   );
 };
