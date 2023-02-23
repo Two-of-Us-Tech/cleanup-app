@@ -1,66 +1,80 @@
+import { useState } from "react";
 import styled from "styled-components/native";
-import loginImageHome from "../assets/images/login-image.png";
 import Button from "../components/Button";
 import Gap from "../components/Gap";
+import Input from "../components/Input";
+import StyledScreen from "../components/StyledScreen";
 import Typography from "../components/Typography";
+import googleLogo from "../assets/images/google.png";
+import Divider from "../components/Divider";
 
-const LoginScreenContainer = styled.SafeAreaView(({ theme: { colors } }) => ({
-  flex: 1,
-  position: "relative",
-  background: colors.white,
-  alignItems: "center",
+const HomeScreenContainer = styled.SafeAreaView(() => ({
   justifyContent: "center",
-}));
-
-const LoginImage = styled.Image(() => ({
-  position: "absolute",
-  bottom: 0,
-  right: 0,
-  width: 488,
-  height: 400,
-  zIndex: -1,
-}));
-
-const ContentContainer = styled.View(() => ({
-  marginBottom: 220,
+  flex: 1,
   alignItems: "center",
+  marginHorizontal: 25,
 }));
 
-const ButtonsContainer = styled.View(() => ({
-  marginTop: 55,
+const FormContainer = styled.View(() => ({
+  marginHorizontal: 25,
 }));
 
-const TextContainer = styled.View(() => ({
-  display: 'flex',
-  gap: 10,
-  alignItems: 'center',
-  marginHorizontal: 10
-}))
+const JustifiedButton = styled.View(() => ({
+  alignItems: "flex-end",
+  padding: 0,
+}));
 
-const Login = ({ navigation }) => {
+const LoginScreen = () => {
+  const [formValue, setFormValue] = useState({
+    email: "",
+    password: "",
+  });
+
+  const onChange = (key, value) => setFormValue({ ...formValue, [key]: value });
+
   return (
-    <LoginScreenContainer>
-      <ContentContainer>
-        <TextContainer>
+    <StyledScreen>
+      <HomeScreenContainer>
+        <FormContainer>
           <Typography font="secondary" fontSize="xl">
-            Clean Up
+            Welcome Back!
           </Typography>
+          <Gap size={22} direction="vertical" />
+          <Input
+            placeholder="Email"
+            value={formValue.email}
+            onChange={(value) => onChange("email", value)}
+          />
           <Gap size={15} direction="vertical" />
-          <Typography color="opaquePrimary" textAlign="center">
-            Volunteers events to make your community a better place
-          </Typography>
-        </TextContainer>
-        <ButtonsContainer>
-          <Button>Login</Button>
-          <Gap size={12} direction="vertical" />
-          <Button variant="light" onPress={() => navigation.navigate("Home")}>
-            Find an Event
-          </Button>
-        </ButtonsContainer>
-      </ContentContainer>
-      <LoginImage source={loginImageHome} />
-    </LoginScreenContainer>
+          <Input
+            placeholder="Password"
+            isPassword
+            value={formValue.password}
+            onChange={(value) => onChange("password", value)}
+          />
+          <Gap size={10} direction="vertical" />
+          <JustifiedButton>
+            <Button variant="light" fontSize="extrasmall" hideBorder>
+              Forget Password?
+            </Button>
+          </JustifiedButton>
+        </FormContainer>
+        <Gap size={30} direction="vertical" />
+        <Button>Login</Button>
+        <Divider dividerText="OR" />
+        <Button variant="white" withShadow iconLeft={googleLogo}>
+          Sign in with Google
+        </Button>
+        <Gap size={30} direction="vertical" />
+        <Typography color="opaqueDark" fontSize="small">
+          New Here?
+        </Typography>
+        <Button variant="light" onPress={() => {}}>
+          Sign Up
+        </Button>
+      </HomeScreenContainer>
+    </StyledScreen>
   );
 };
 
-export default Login;
+export default LoginScreen;
