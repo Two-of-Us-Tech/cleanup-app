@@ -8,7 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components/native";
 import EventListScreen from "./screens/EventListScreen";
 
 const Stack = createNativeStackNavigator();

@@ -6,6 +6,7 @@ import exampleImage from "../assets/images/example.jpeg";
 import { useState } from "react";
 import EventCard from "../components/EventCard";
 import Gap from "../components/Gap";
+import Navigator from "../components/Navigator";
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
@@ -53,6 +54,7 @@ const EventListScreen = ({}) => {
           </EventListContainer>
         </ContentContainer>
       </ScreenContainer>
+      <Navigator />
     </StyledScreen>
   );
 };

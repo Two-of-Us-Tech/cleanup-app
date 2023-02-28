@@ -16,7 +16,9 @@ const defaultTheme = {
     opaqueDark: 'rgba(0, 0, 0, 0.7)',
     darkTransparent: 'rgba(0, 0, 0, 0.3)',
     inputColor: '#F9F9FF',
-    gray: '#ECECEC'
+    gray: '#ECECEC',
+    barColor: '#F9F9FB',
+    disableColor: '#ccc'
   },
   fonts: {
     primary: primaryFontName,

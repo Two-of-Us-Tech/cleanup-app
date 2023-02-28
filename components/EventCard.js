@@ -48,7 +48,7 @@ const EventCard = ({ eventName, date, id, spotsLeft, image }) => {
   const { colors } = useTheme();
 
   return (
-    <Shadow stretch style={{ borderRadius: 20}}>
+    <Shadow distance={6} stretch style={{ borderRadius: 20}}>
       <EventCardContainer>
         <ImageContainer source={image} />
         <ContentContainer>

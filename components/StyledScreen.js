@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 const ScreenContainer = styled.View(({ theme: { colors } }) => ({
   flex: 1,
