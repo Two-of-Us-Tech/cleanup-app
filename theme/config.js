@@ -15,7 +15,8 @@ const defaultTheme = {
     opaquePrimary: 'rgba(11, 67, 126, 0.5)',
     opaqueDark: 'rgba(0, 0, 0, 0.7)',
     darkTransparent: 'rgba(0, 0, 0, 0.3)',
-    inputColor: '#F9F9FF'
+    inputColor: '#F9F9FF',
+    gray: '#ECECEC'
   },
   fonts: {
     primary: primaryFontName,

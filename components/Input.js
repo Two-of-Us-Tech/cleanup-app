@@ -32,7 +32,7 @@ const Input = ({
   value = "",
   placeholder = "",
   fullWidth = false,
-  Icon,
+  icon,
 }) => {
 
   return (
@@ -45,9 +45,9 @@ const Input = ({
         value={value}
         placeholder={placeholder}
       />
-      {Icon && (
+      {icon && (
         <IconContainer>
-          <Icon width={20} height={20} color="#000f" />
+          {icon}
         </IconContainer>
       )}
     </SearchContainer>

@@ -1,6 +1,4 @@
-import { Image } from "react-native";
 import styled from "styled-components/native";
-
 
 const shadow = {
   shadowOpacity: 0.2,
@@ -21,13 +19,6 @@ const ButtonContainer = styled.TouchableOpacity(
     ...($variant === "rounded" && {
       borderRadius: 20,
     }),
-    ...($variant === "light" && {
-      background: "transparent",
-      paddingHorizontal: 0,
-      paddingVertical: 0,
-      position: 'relative',
-      overflow: 'hidden'
-    }),
     ...($variant === "white" && {
       background: colors.white,
     }),
@@ -46,9 +37,6 @@ const ButtonText = styled.Text(({ theme: { colors, fonts, fontSize }, $variant, 
   color: colors.white,
   fontFamily: fonts.primary,
   fontSize: fontSize[$fontSize],
-  ...($variant === "light" && {
-    color: colors.primary,
-  }),
   ...($variant === "white" && {
     color: colors.opaqueDark
   }),
@@ -67,19 +55,10 @@ const StyledImage = styled.Image(({ isLeft, $fontSize }) => ({
   }
 }))
 
-const LightBorder = styled.View(({ theme: { colors }}) => ({
-  position: 'absolute',
-  height: 2,
-  width: '90%',
-  bottom: 0,
-  background: colors.primary
-}))
-
 const Button = ({
   children,
   variant = "default",
   onPress,
-  hideBorder = false,
   fontSize = "regular",
   withShadow = false, 
   iconLeft = null,
@@ -91,7 +70,6 @@ const Button = ({
       <ButtonText $variant={variant} $fontSize={fontSize}>
         {children}
       </ButtonText>
-      {variant === 'light' && !hideBorder && <LightBorder />}
       {iconRight && <StyledImage source={iconRight} style={{ width: 25, height: 33 }}/>}
     </ButtonContainer>
   );

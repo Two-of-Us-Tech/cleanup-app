@@ -7,6 +7,7 @@ import StyledScreen from "../components/StyledScreen";
 import Typography from "../components/Typography";
 import googleLogo from "../assets/images/google.png";
 import Divider from "../components/Divider";
+import LinkButton from "../components/LinkButton";
 
 const HomeScreenContainer = styled.SafeAreaView(() => ({
   justifyContent: "center",
@@ -54,9 +55,12 @@ const LoginScreen = () => {
           />
           <Gap size={10} direction="vertical" />
           <JustifiedButton>
-            <Button variant="light" fontSize="extrasmall" hideBorder>
+            <LinkButton
+              hideBorder
+              size="extraSmall"
+            >
               Forget Password?
-            </Button>
+            </LinkButton>
           </JustifiedButton>
         </FormContainer>
         <Gap size={30} direction="vertical" />
@@ -69,9 +73,9 @@ const LoginScreen = () => {
         <Typography color="opaqueDark" fontSize="small">
           New Here?
         </Typography>
-        <Button variant="light" onPress={() => {}}>
+        <LinkButton variant="light" onPress={() => {}}>
           Sign Up
-        </Button>
+        </LinkButton>
       </HomeScreenContainer>
     </StyledScreen>
   );
