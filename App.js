@@ -10,6 +10,7 @@ import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import { ThemeProvider } from "styled-components/native";
 import EventListScreen from "./screens/EventListScreen";
+import EventScreen from "./screens/EventScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,11 @@ export default function App() {
           <Stack.Screen
             name="EventList"
             component={EventListScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Event"
+            component={EventScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

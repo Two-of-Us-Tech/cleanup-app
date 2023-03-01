@@ -21,7 +21,7 @@ const ContentContainer = styled.View(() => ({
 
 const EventListContainer = styled.ScrollView(() => ({
   marginTop: 20,
-  height: "100%",
+  marginBottom: 100,
   overflow: 'visible'
 }));
 
@@ -42,15 +42,15 @@ const EventListScreen = ({}) => {
           />
 
           <EventListContainer>
-            <EventCard eventName="Cocoa's Beach Cleanup" image={exampleImage} />
+            <EventCard id={1} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
             <Gap size={28} direction="vertical" />
-            <EventCard eventName="Cocoa's Beach Cleanup" image={exampleImage} />
+            <EventCard id={2} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
             <Gap size={28} direction="vertical" />
-            <EventCard eventName="Cocoa's Beach Cleanup" image={exampleImage} />
+            <EventCard id={3} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
             <Gap size={28} direction="vertical" />
-            <EventCard eventName="Cocoa's Beach Cleanup" image={exampleImage} />
+            <EventCard id={4} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
             <Gap size={28} direction="vertical" />
-            <EventCard eventName="Cocoa's Beach Cleanup" image={exampleImage} />
+            <EventCard id={5} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
           </EventListContainer>
         </ContentContainer>
       </ScreenContainer>

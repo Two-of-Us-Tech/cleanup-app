@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 const shadow = {
   shadowOpacity: 0.2,
   elevation: 1,
-  shadowRadius: 4 ,
+  shadowRadius: 6 ,
   shadowOffset : { width: 1, height: 2 },
 }
 
@@ -22,12 +22,8 @@ const ButtonContainer = styled.TouchableOpacity(
     ...($variant === "white" && {
       background: colors.white,
     }),
-    ...($variant === 'white' && $withShadow && {
+    ...($withShadow && {
       shadowColor: colors.opaqueDark,
-      ...shadow
-    }),
-    ...($variant === 'default' && $withShadow && {
-      shadowColor: colors.primary,
       ...shadow
     })
   })
@@ -62,10 +58,11 @@ const Button = ({
   fontSize = "regular",
   withShadow = false, 
   iconLeft = null,
-  iconRight = null
+  iconRight = null,
+  ...props
 }) => {
   return (
-    <ButtonContainer $variant={variant} onPress={onPress} $withShadow={withShadow}>
+    <ButtonContainer $variant={variant} onPress={onPress} $withShadow={withShadow} {...props}>
       {iconLeft && <StyledImage isLeft source={iconLeft} $fontSize={fontSize}  />}
       <ButtonText $variant={variant} $fontSize={fontSize}>
         {children}

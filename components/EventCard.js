@@ -2,10 +2,10 @@ import styled, { useTheme } from "styled-components/native";
 import Gap from "./Gap";
 import LinkButton from "./LinkButton";
 import Typography from "./Typography";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import ProgressIndicator from "./ProgressIndicator";
 import { Shadow } from "react-native-shadow-2";
-import { View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const EventCardContainer = styled.View(({ theme: { colors } }) => ({
   borderRadius: 20,
@@ -46,6 +46,7 @@ const ActivityContainer = styled.View(() => ({
 
 const EventCard = ({ eventName, date, id, spotsLeft, image }) => {
   const { colors } = useTheme();
+  const navigation = useNavigation()
 
   return (
     <Shadow distance={6} stretch style={{ borderRadius: 20}}>
@@ -57,7 +58,7 @@ const EventCard = ({ eventName, date, id, spotsLeft, image }) => {
           </Typography>
           <Divider />
           <DateContainer>
-            <AntDesign name="calendar" size={16} color="black" />
+            <Ionicons name="calendar-outline" size={16} />
             <Gap size={4} />
             <Typography
               fontSize="extraSmall"
@@ -70,11 +71,11 @@ const EventCard = ({ eventName, date, id, spotsLeft, image }) => {
           <Gap size={8} direction="vertical" />
           <LinkButton
             icon={
-              <AntDesign name="arrowright" size={18} color={colors.primary} />
+              <Ionicons name="arrow-forward" size={18} color={colors.primary} />
             }
             alignSelf="start"
             fontProps={{ fontSize: "small" }}
-            onPress={() => {}}
+            onPress={() => navigation.navigate('Event', { id })}
           >
             See Event Details
           </LinkButton>

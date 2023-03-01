@@ -21,7 +21,8 @@ const Typography = ({
   fontSize = "regular",
   fontSpacing = "regular",
   textAlign = "default",
-  children
+  children,
+  ...props
 }) => {
   return (
     <StyledText 
@@ -30,6 +31,7 @@ const Typography = ({
       $fontSize={fontSize}
       $fontSpacing={fontSpacing}
       $textAlign={textAlign}
+      {...props}
     >
       {children}
     </StyledText>
