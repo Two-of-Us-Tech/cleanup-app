@@ -6,15 +6,16 @@ import { TouchableOpacity } from "react-native";
 import exampleImage from "../assets/images/example.jpeg";
 import Gap from "../components/Gap";
 import Button from "../components/Button";
+import MapView, { Marker } from "react-native-maps";
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   marginHorizontal: 22,
-  position: 'relative'
+  position: "relative",
 }));
 
 const StyledTitle = styled(Typography)(() => ({
   textAlign: "center",
-  marginTop: 20,
+  marginBottom: 20,
 }));
 
 const ImageContainer = styled.Image(() => ({
@@ -25,8 +26,8 @@ const ImageContainer = styled.Image(() => ({
 }));
 
 const ScrollableContent = styled.ScrollView(() => ({
-  marginTop: 20,
-  marginBottom: 120
+  marginTop: 0,
+  marginBottom: 80,
 }));
 
 const EventItem = styled.View(() => ({
@@ -34,21 +35,20 @@ const EventItem = styled.View(() => ({
   alignItems: "center",
 }));
 
-const MapContainer = styled.View(() => ({
-  background: "#2ecc71",
+const MapContainer = styled(MapView)({
   width: "100%",
   height: 198,
   borderRadius: 15,
   marginTop: 15,
   marginBottom: 15,
-}));
+});
 
 const StyledButton = styled(Button)(() => ({
-  position: 'absolute',
-  alignSelf: 'center',
+  position: "absolute",
+  alignSelf: "center",
   bottom: 30,
-  width: '90%'
-}))
+  width: "90%",
+}));
 
 const EventScreen = ({ route: { params }, navigation }) => {
   return (
@@ -57,10 +57,10 @@ const EventScreen = ({ route: { params }, navigation }) => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <StyledTitle color="opaqueDark" fontSpacing="spaced">
-          Event Details
-        </StyledTitle>
         <ScrollableContent>
+          <StyledTitle color="opaqueDark" fontSpacing="spaced">
+            Event Details
+          </StyledTitle>
           <Typography
             fontSize="regular"
             font="primaryBold"
@@ -114,7 +114,19 @@ const EventScreen = ({ route: { params }, navigation }) => {
               Cocoa’s Beach, 1 Ocean Pkwy Wantahg, Ny 11793ss
             </Typography>
           </EventItem>
-          <MapContainer />
+          <MapContainer
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          >
+            <Marker
+              coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+              title="Coco Beach Cleanup"
+            />
+          </MapContainer>
           <Typography fontSpacing="spaced" font="primaryBold">
             About the Event
           </Typography>
@@ -156,7 +168,9 @@ const EventScreen = ({ route: { params }, navigation }) => {
           </EventItem>
         </ScrollableContent>
       </ScreenContainer>
-      <StyledButton variant="rounded" withShadow>Join this Event</StyledButton>
+      <StyledButton variant="rounded" withShadow>
+        Join this Event
+      </StyledButton>
     </StyledScreen>
   );
 };

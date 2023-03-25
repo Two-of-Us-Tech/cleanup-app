@@ -28,9 +28,9 @@ const CircleTwo = styled.View(({ theme: { colors } }) => ({
   background: colors.tertiary,
 }));
 
-const StyledScreen = ({ children }) => {
+const StyledScreen = ({ children, ...props }) => {
   return (
-    <ScreenContainer>
+    <ScreenContainer {...props}>
       <CircleOne />
       <CircleTwo />
       {children}

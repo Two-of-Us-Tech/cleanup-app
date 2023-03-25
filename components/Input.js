@@ -1,4 +1,3 @@
-import { useTheme } from "@react-navigation/native";
 import styled from "styled-components/native";
 
 const StyledInput = styled.TextInput(({ $rounded, theme: { colors } }) => ({
@@ -33,10 +32,11 @@ const Input = ({
   placeholder = "",
   fullWidth = false,
   icon,
+  ...props
 }) => {
 
   return (
-    <SearchContainer $fullWidth={fullWidth}>
+    <SearchContainer $fullWidth={fullWidth} {...props}>
       <StyledInput
         onChange={onChange}
         $rounded={rounded}
