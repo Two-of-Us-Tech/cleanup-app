@@ -22,7 +22,7 @@ const StyledInput = styled(Input)`
   margin-top: 16px;
 `;
 
-const MapScreen = () => {
+const MapScreen = ({ navigation }) => {
   const [location, setLocation] = useState();
 
   const eventData = {
@@ -78,6 +78,8 @@ const MapScreen = () => {
         >
           {events.map((event) => (
             <Marker
+              //TODO - Redirect to the right event
+              onCalloutPress={() => navigation.navigate('Event')}
               key={event.coordinate.latitude}
               coordinate={event.coordinate}
               title={eventData.title}

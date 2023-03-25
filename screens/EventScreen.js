@@ -51,6 +51,7 @@ const StyledButton = styled(Button)(() => ({
 }));
 
 const EventScreen = ({ route: { params }, navigation }) => {
+  // TODO - Get the params 
   return (
     <StyledScreen>
       <ScreenContainer>

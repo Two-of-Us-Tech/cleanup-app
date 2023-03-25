@@ -25,7 +25,7 @@ const JustifiedButton = styled.View(() => ({
   padding: 0,
 }));
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -73,7 +73,7 @@ const LoginScreen = () => {
         <Typography color="opaqueDark" fontSize="small">
           New Here?
         </Typography>
-        <LinkButton variant="light" onPress={() => {}}>
+        <LinkButton variant="light" onPress={() => navigation.navigate('Signup')}>
           Sign Up
         </LinkButton>
       </HomeScreenContainer>
