@@ -2,7 +2,7 @@ import styled, { useTheme } from "styled-components/native";
 import Gap from "./Gap";
 import LinkButton from "./LinkButton";
 import Typography from "./Typography";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import ProgressIndicator from "./ProgressIndicator";
 import { Shadow } from "react-native-shadow-2";
 import { useNavigation } from "@react-navigation/native";
@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 const EventCardContainer = styled.View(({ theme: { colors } }) => ({
   borderRadius: 20,
   background: colors.white,
-  position: "relative",
+  position: "relative"
 }));
 
 const ImageContainer = styled.Image(() => ({
@@ -37,19 +37,28 @@ const DateContainer = styled.View(() => ({
   alignItems: "center",
 }));
 
-const ActivityContainer = styled.View(() => ({
+const InfoContainer = styled.View(() => ({
   position: "absolute",
   right: 18,
   bottom: 26,
   alignItems: "center",
 }));
 
-const EventCard = ({ eventName, date, id, spotsLeft, image }) => {
+const RemoveButton = styled.TouchableOpacity(() => ({}));
+
+const EventCard = ({
+  eventName,
+  date,
+  id,
+  spotsLeft,
+  image,
+  editMode = false,
+}) => {
   const { colors } = useTheme();
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
-    <Shadow distance={6} stretch style={{ borderRadius: 20}}>
+    <Shadow distance={6} stretch style={{ borderRadius: 20 }}>
       <EventCardContainer>
         <ImageContainer source={image} />
         <ContentContainer>
@@ -75,20 +84,28 @@ const EventCard = ({ eventName, date, id, spotsLeft, image }) => {
             }
             alignSelf="start"
             fontProps={{ fontSize: "small" }}
-            onPress={() => navigation.navigate('Event', { id })}
+            onPress={() => navigation.navigate("Event", { id })}
           >
             See Event Details
           </LinkButton>
         </ContentContainer>
         <Gap size={14} direction="vertical" />
 
-        <ActivityContainer>
-          <ProgressIndicator percentage={0.75} />
-          <Gap size={6} direction="vertical" />
-          <Typography color="oranged" fontSize="extraSmall">
-            25 spots left
-          </Typography>
-        </ActivityContainer>
+        <InfoContainer>
+          {!editMode ? (
+            <>
+              <ProgressIndicator percentage={0.75} />
+              <Gap size={6} direction="vertical" />
+              <Typography color="oranged" fontSize="extraSmall">
+                25 spots left
+              </Typography>
+            </>
+          ) : (
+            <RemoveButton>
+              <Ionicons name="ios-trash-outline" size={40} color={colors.primary} />
+            </RemoveButton>
+          )}
+        </InfoContainer>
       </EventCardContainer>
     </Shadow>
   );

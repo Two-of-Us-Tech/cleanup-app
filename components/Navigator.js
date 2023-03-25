@@ -1,9 +1,10 @@
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { routes } from "../config/routes";
 import { useTheme } from "styled-components";
 import { Shadow } from "react-native-shadow-2";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const NavigatorContainer = styled.View(() => ({
   position: "absolute",
@@ -36,7 +37,15 @@ const Navigator = () => {
   const {
     colors: { dark, disableColor },
   } = useTheme();
-  const [selectedRoute, setSelectedRoute] = useState(routes[0].route);
+  const navigation = useNavigation()
+  const route = useRoute()
+  const [selectedRoute, setSelectedRoute] = useState(route.name);
+
+  useEffect(() => {
+    setSelectedRoute(route.name)
+  }, [
+    route.name
+  ])
 
   return (
     <NavigatorContainer>
@@ -45,7 +54,11 @@ const Navigator = () => {
           {routes.map(({ icon, route }) => (
             <TabButton
               key={route}
-              onPress={() => setSelectedRoute(route)}
+              onPress={() => {
+                if (route !== selectedRoute) {
+                  navigation.navigate(route)
+                }
+              }}
               $selected={selectedRoute === route}
             >
               <Ionicons

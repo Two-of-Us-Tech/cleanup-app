@@ -10,8 +10,7 @@ import Navigator from "../components/Navigator";
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
-  marginHorizontal: 20,
-  alignItems: "center",
+  marginHorizontal: 20
 }));
 
 const ContentContainer = styled.View(() => ({
