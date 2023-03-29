@@ -1,7 +1,6 @@
 import styled from "styled-components/native";
 import StyledScreen from "../components/StyledScreen";
 import Input from "../components/Input";
-import { AntDesign } from "@expo/vector-icons";
 import exampleImage from "../assets/images/example.jpeg";
 import { useState } from "react";
 import EventCard from "../components/EventCard";
@@ -33,14 +32,11 @@ const EventListScreen = ({}) => {
         <ContentContainer>
           <Input
             placeholder="Find your event"
-            fullWidth
-            rounded
-            icon={<AntDesign name="search1" size={20} color="black" />}
+            icon="search"
             value={searchTerm}
             onChange={(value) => setSearchTerm(value)}
           />
-
-          <EventListContainer>
+          <EventListContainer showsVerticalScrollIndicator={false} >
             <EventCard id={1} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
             <Gap size={28} direction="vertical" />
             <EventCard id={2} eventName="Cocoa's Beach Cleanup" image={exampleImage} />

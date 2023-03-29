@@ -63,8 +63,7 @@ const MapScreen = ({ navigation }) => {
         <StyledInput
           placeholder="Find events near you"
           fullWidth
-          rounded
-          icon={<AntDesign name="search1" size={20} color="black" />}
+          icon='search'
           value={location}
           onChange={(value) => setLocation(value)}
         />

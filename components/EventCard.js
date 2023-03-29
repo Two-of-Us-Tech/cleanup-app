@@ -79,9 +79,7 @@ const EventCard = ({
           </DateContainer>
           <Gap size={8} direction="vertical" />
           <LinkButton
-            icon={
-              <Ionicons name="arrow-forward" size={18} color={colors.primary} />
-            }
+            icon="arrow-forward"
             alignSelf="start"
             fontProps={{ fontSize: "small" }}
             onPress={() => navigation.navigate("Event", { id })}

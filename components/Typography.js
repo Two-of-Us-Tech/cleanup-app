@@ -12,7 +12,7 @@ const StyledText = styled.Text(({
   fontFamily: fonts[$font],
   fontSize: fontSize[$fontSize],
   letterSpacing: fontSpacing[$fontSpacing],
-  textAlign:  $textAlign
+  textAlign:  $textAlign,
 }))
 
 const Typography = ({

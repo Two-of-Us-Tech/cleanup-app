@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation }) => {
   const onChange = (key, value) => setFormValue({ ...formValue, [key]: value });
 
   return (
-    <StyledScreen>
+    <StyledScreen showBackButton>
       <HomeScreenContainer>
         <FormContainer>
           <Typography font="secondary" fontSize="xl">

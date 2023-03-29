@@ -1,4 +1,5 @@
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
+import { Ionicons } from "@expo/vector-icons";
 import Typography from "./Typography";
 import Gap from "./Gap";
 
@@ -28,15 +29,17 @@ const LinkButton = ({
   hideBorder = false,
   alignSelf = "auto",
   size = "regular",
-  icon
+  icon,
+  ...props
 }) => {
+  const { colors } = useTheme()
   return (
-    <LinkButtonContainer onPress={onPress} $alignSelf={alignSelf}>
+    <LinkButtonContainer onPress={onPress} $alignSelf={alignSelf} {...props}>
       <ButtonBorder $size={size} $hideBorder={hideBorder}>
         <Typography fontSize={size}>{children}</Typography>
       </ButtonBorder>
       <Gap size={6} />
-      {icon}
+      {icon && <Ionicons name={icon} size={18} color={colors.primary} />}
     </LinkButtonContainer>
   );
 };

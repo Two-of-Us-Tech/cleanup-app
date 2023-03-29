@@ -1,4 +1,8 @@
+import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
+import Typography from "./Typography";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const ScreenContainer = styled.View(({ theme: { colors } }) => ({
   flex: 1,
@@ -7,7 +11,7 @@ const ScreenContainer = styled.View(({ theme: { colors } }) => ({
   background: colors.white,
 }));
 
-const CircleOne = styled.View(({ theme: { colors } }) => ({
+const CircleTwo = styled.View(({ theme: { colors } }) => ({
   position: "absolute",
   width: 432,
   height: 417,
@@ -15,9 +19,10 @@ const CircleOne = styled.View(({ theme: { colors } }) => ({
   top: -20,
   left: -150,
   background: colors.secondary,
+  zIndex: -1,
 }));
 
-const CircleTwo = styled.View(({ theme: { colors } }) => ({
+const CircleOne = styled.View(({ theme: { colors } }) => ({
   position: "absolute",
   width: 468,
   height: 474,
@@ -39,19 +44,43 @@ const SecondaryItemContainer = styled.View(() => ({
 }));
 
 const SecondaryCircle = styled.View(({ theme: { colors } }) => ({
-  position: 'absolute',
+  position: "absolute",
   bottom: 0,
   zIndex: -1,
-  height: '78%',
+  height: "83%",
   width: 700,
   background: colors.tertiary,
   borderTopLeftRadius: 1000,
   borderTopRightRadius: 1000,
 }));
 
-const StyledScreen = ({ children, style = "default", ...props }) => {
+const HeaderContainer = styled.View`
+  position: absolute;
+  top: 60px;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+`;
+
+const StyledIconButton = styled.TouchableOpacity`
+  position: absolute;
+  left: 10;
+  z-index: 1;
+  border: 1px solid red;
+`;
+
+const StyledScreen = ({
+  children,
+  style = "default",
+  headerText,
+  showBackButton,
+  ...props
+}) => {
+  const navigate = useNavigation()
+
   return (
     <ScreenContainer {...props}>
+
       {style === "default" && (
         <>
           <CircleOne />
@@ -63,6 +92,25 @@ const StyledScreen = ({ children, style = "default", ...props }) => {
           <SecondaryCircle />
         </SecondaryItemContainer>
       )}
+
+      {/* {(showBackButton || headerText) && (
+        <HeaderContainer>
+          {showBackButton && (
+            <StyledIconButton onPress={() => navigate.goBack()}>
+              <Ionicons name="arrow-back" size={28} color="black" />
+            </StyledIconButton>
+          )}
+          {headerText && (
+            <Typography
+              color="opaqueDark"
+              font="primaryBold"
+              fontSpacing="spaced"
+            >
+              {headerText}
+            </Typography>
+          )}
+        </HeaderContainer>
+      )} */}
       {children}
     </ScreenContainer>
   );
