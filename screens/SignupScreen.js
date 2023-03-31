@@ -13,7 +13,7 @@ import * as Yup from "yup";
 const StyledContainer = styled.SafeAreaView(() => ({
   alignItems: "center",
   marginHorizontal: 20,
-  marginTop: 130,
+  marginTop: 38
 }));
 
 const ImageContainer = styled.View(() => ({
@@ -119,7 +119,7 @@ const SignupScreen = ({ navigation }) => {
   const onSubmit = () => {
     setIsSubmitting(true);
     setTimeout(() => {
-      navigation.navigate("Home");
+      navigation.navigate("EventList");
       setIsSubmitting(false)
     }, 2000);
   }

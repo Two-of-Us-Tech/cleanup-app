@@ -9,27 +9,18 @@ import Typography from "../components/Typography";
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
   marginHorizontal: 20,
+  marginTop: -10,
 }));
 
 const EventListContainer = styled.ScrollView(() => ({
-  marginTop: 20,
-  marginBottom: 100,
-  overflow: "visible",
-}));
-
-const StyledTitle = styled(Typography)(() => ({
-  textAlign: "center",
-  marginTop: 20,
+  marginBottom: 80
 }));
 
 const MyEventsScreen = () => {
   return (
-    <StyledScreen>
+    <StyledScreen headerText='My Events'>
       <ScreenContainer>
-        <StyledTitle color="opaqueDark" fontSpacing="spaced">
-          My Events
-        </StyledTitle>
-        <EventListContainer>
+        <EventListContainer showsVerticalScrollIndicator={false}>
           <EventCard
             editMode
             id={1}

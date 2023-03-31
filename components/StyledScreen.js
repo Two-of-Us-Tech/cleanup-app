@@ -8,7 +8,7 @@ const ScreenContainer = styled.View(({ theme: { colors } }) => ({
   flex: 1,
   position: "relative",
   overflow: "hidden",
-  background: colors.white,
+  background: colors.white
 }));
 
 const CircleTwo = styled.View(({ theme: { colors } }) => ({
@@ -54,19 +54,17 @@ const SecondaryCircle = styled.View(({ theme: { colors } }) => ({
   borderTopRightRadius: 1000,
 }));
 
-const HeaderContainer = styled.View`
-  position: absolute;
-  top: 60px;
+const HeaderContainer = styled.SafeAreaView`
+  margin-top: 20px;
   flex-direction: row;
   justify-content: center;
-  position: relative;
 `;
 
 const StyledIconButton = styled.TouchableOpacity`
   position: absolute;
-  left: 10;
+  left: 26px;
+  top: -2px;
   z-index: 1;
-  border: 1px solid red;
 `;
 
 const StyledScreen = ({
@@ -93,24 +91,26 @@ const StyledScreen = ({
         </SecondaryItemContainer>
       )}
 
-      {/* {(showBackButton || headerText) && (
-        <HeaderContainer>
-          {showBackButton && (
-            <StyledIconButton onPress={() => navigate.goBack()}>
-              <Ionicons name="arrow-back" size={28} color="black" />
-            </StyledIconButton>
-          )}
-          {headerText && (
-            <Typography
-              color="opaqueDark"
-              font="primaryBold"
-              fontSpacing="spaced"
-            >
-              {headerText}
-            </Typography>
-          )}
-        </HeaderContainer>
-      )} */}
+      {(showBackButton || headerText) && (
+        <SafeAreaView>
+          <HeaderContainer>
+            {showBackButton && (
+              <StyledIconButton onPress={() => navigate.goBack()}>
+                <Ionicons name="arrow-back" size={28} color="black" />
+              </StyledIconButton>
+            )}
+            {headerText && (
+              <Typography
+                color="opaqueDark"
+                font="primaryBold"
+                fontSpacing="spaced"
+              >
+                {headerText}
+              </Typography>
+            )}
+          </HeaderContainer>
+        </SafeAreaView>
+      )}
       {children}
     </ScreenContainer>
   );

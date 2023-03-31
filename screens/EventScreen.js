@@ -1,21 +1,18 @@
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 import StyledScreen from "../components/StyledScreen";
 import Typography from "../components/Typography";
 import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native";
 import exampleImage from "../assets/images/example.jpeg";
 import Gap from "../components/Gap";
 import Button from "../components/Button";
 import MapView, { Marker } from "react-native-maps";
+import Toast from "react-native-toast-message";
+import toastConfig from "../config/toastConfig";
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   marginHorizontal: 22,
   position: "relative",
-}));
-
-const StyledTitle = styled(Typography)(() => ({
-  textAlign: "center",
-  marginBottom: 20,
+  zIndex: -1
 }));
 
 const ImageContainer = styled.Image(() => ({
@@ -26,8 +23,7 @@ const ImageContainer = styled.Image(() => ({
 }));
 
 const ScrollableContent = styled.ScrollView(() => ({
-  marginTop: 0,
-  marginBottom: 80,
+  marginBottom: 180,
 }));
 
 const EventItem = styled.View(() => ({
@@ -50,18 +46,15 @@ const StyledButton = styled(Button)(() => ({
   width: "90%",
 }));
 
-const EventScreen = ({ route: { params }, navigation }) => {
-  // TODO - Get the params 
+const EventScreen = ({ }) => {
+  // TODO - Get the params
+  console.log('toastConfig', toastConfig)
+  const { colors } = useTheme()
   return (
-    <StyledScreen>
+    <StyledScreen showBackButton headerText="Event Details">
+      <Toast config={toastConfig} />
       <ScreenContainer>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <ScrollableContent>
-          <StyledTitle color="opaqueDark" fontSpacing="spaced">
-            Event Details
-          </StyledTitle>
+        <ScrollableContent showsVerticalScrollIndicator={false}>
           <Typography
             fontSize="regular"
             font="primaryBold"
@@ -169,7 +162,20 @@ const EventScreen = ({ route: { params }, navigation }) => {
           </EventItem>
         </ScrollableContent>
       </ScreenContainer>
-      <StyledButton variant="rounded" withShadow>
+      <StyledButton
+        variant="rounded"
+        withShadow
+        onPress={() => {
+          Toast.show({
+            type: "success",
+            props: {
+              label: "This Event was added to your list!",
+              iconColor: colors.primary,
+              onHide: () => Toast.hide(),
+            },
+          });
+        }}
+      >
         Join this Event
       </StyledButton>
     </StyledScreen>

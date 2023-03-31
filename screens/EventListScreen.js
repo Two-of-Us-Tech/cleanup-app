@@ -18,9 +18,8 @@ const ContentContainer = styled.View(() => ({
 }));
 
 const EventListContainer = styled.ScrollView(() => ({
-  marginTop: 20,
-  marginBottom: 100,
-  overflow: 'visible'
+  marginTop: 10,
+  marginBottom: 100
 }));
 
 const EventListScreen = ({}) => {

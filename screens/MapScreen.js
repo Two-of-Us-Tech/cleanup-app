@@ -14,7 +14,7 @@ const ScreenContainer = styled.SafeAreaView(() => ({
 const StyledMap = styled(MapView)`
   height: 90%;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
   border-radius: 15px;
 `;
 
