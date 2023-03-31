@@ -15,7 +15,7 @@ const StyledTitle = styled(Typography)(() => ({
 
 const MyProfileScreen = () => {
   return (
-    <StyledScreen>
+    <StyledScreen style="secondary">
       <ScreenContainer>
         <StyledTitle color="opaqueDark" fontSpacing="spaced">
           My Profile

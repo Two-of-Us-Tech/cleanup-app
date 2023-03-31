@@ -15,7 +15,8 @@ const defaultTheme = {
     opaquePrimary: 'rgba(11, 67, 126, 0.5)',
     opaqueDark: 'rgba(0, 0, 0, 0.7)',
     darkTransparent: 'rgba(0, 0, 0, 0.3)',
-    inputColor: '#F9F9FF',
+    tertiaryDark: 'rgba(0, 0, 0, 0.1)',
+    inputColor: '#F9F9FF', 
     gray: '#ECECEC',
     barColor: '#F9F9FB',
     disableColor: '#ccc'

@@ -1,10 +1,10 @@
 import styled from "styled-components/native";
-import EventCard from "../components/EventCard";
-import Gap from "../components/Gap";
 import Navigator from "../components/Navigator";
 import StyledScreen from "../components/StyledScreen";
-import exampleImage from "../assets/images/example.jpeg";
+import Gap from "../components/Gap";
+
 import Typography from "../components/Typography";
+import ItemInfo from "../components/ItemInfo";
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
@@ -13,47 +13,80 @@ const ScreenContainer = styled.SafeAreaView(() => ({
 }));
 
 const EventListContainer = styled.ScrollView(() => ({
-  marginBottom: 80
+  marginBottom: 80,
 }));
 
+const ListHeader = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-vertical: 12px;
+`;
+
+const Divider = styled.View`
+  height: 1px;
+  background: ${({ theme: { colors } }) => colors.darkTransparent};
+  width: 100%;
+`;
+
 const MyEventsScreen = () => {
+  const renderListHeader = (title) => {
+    return (
+      <ListHeader>
+        <Typography font="primaryBold" fontSpacing="spaced">
+          {title}
+        </Typography>
+        <Gap size={10} />
+        <Divider />
+      </ListHeader>
+    );
+  };
   return (
-    <StyledScreen headerText='My Events'>
+    <StyledScreen headerText="My Events">
       <ScreenContainer>
         <EventListContainer showsVerticalScrollIndicator={false}>
-          <EventCard
-            editMode
-            id={1}
-            eventName="Cocoa's Beach Cleanup"
-            image={exampleImage}
+          {renderListHeader("This Month")}
+          <ItemInfo
+            day={14}
+            month="Feb"
+            location="Far away location"
+            title="Your event name goes here"
           />
-          <Gap size={28} direction="vertical" />
-          <EventCard
-            editMode
-            id={2}
-            eventName="Cocoa's Beach Cleanup"
-            image={exampleImage}
+          <Gap size={10} direction="vertical" />
+          <ItemInfo
+            day={14}
+            month="Feb"
+            location="Far away location"
+            title="Your event name goes here"
           />
-          <Gap size={28} direction="vertical" />
-          <EventCard
-            editMode
-            id={3}
-            eventName="Cocoa's Beach Cleanup"
-            image={exampleImage}
+          {renderListHeader("This Month")}
+          <ItemInfo
+            day={14}
+            month="Feb"
+            location="Far away location"
+            title="Your event name goes here"
           />
-          <Gap size={28} direction="vertical" />
-          <EventCard
-            editMode
-            id={4}
-            eventName="Cocoa's Beach Cleanup"
-            image={exampleImage}
+          <Gap size={10} direction="vertical" />
+          <ItemInfo
+            day={14}
+            month="Feb"
+            location="Far away location"
+            title="Your event name goes here"
           />
-          <Gap size={28} direction="vertical" />
-          <EventCard
-            editMode
-            id={5}
-            eventName="Cocoa's Beach Cleanup"
-            image={exampleImage}
+          {renderListHeader("Past Events")}
+          <ItemInfo
+            isEventDue
+            day={14}
+            month="Feb"
+            location="Far away location"
+            title="Your event name goes here"
+          />
+          <Gap size={10} direction="vertical" />
+          <ItemInfo
+            isEventDue
+            day={14}
+            month="Feb"
+            location="Far away location"
+            title="Your event name goes here"
           />
         </EventListContainer>
       </ScreenContainer>
