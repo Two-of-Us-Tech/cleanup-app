@@ -58,6 +58,7 @@ const LoginScreen = ({ navigation }) => {
             <LinkButton
               hideBorder
               size="extraSmall"
+              onPress={() => navigation.navigate('ForgetPassword')}
             >
               Forget Password?
             </LinkButton>

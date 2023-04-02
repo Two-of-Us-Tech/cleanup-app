@@ -15,6 +15,8 @@ import MyEventsScreen from "./screens/MyEventsScreen";
 import MapScreen from "./screens/MapScreen";
 import MyProfileScreen from "./screens/MyProfileScreen";
 import SignupScreen from "./screens/SignupScreen";
+import ResetPasswordScreen from "./screens/ResetPasswordScreen";
+import ForgetPasswordScreen from "./screens/ForgetPasswordScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +50,8 @@ export default function App() {
           <Stack.Screen name="MyEvents" component={MyEventsScreen} />
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="MyProfile" component={MyProfileScreen} />
+          <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
+          <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>
