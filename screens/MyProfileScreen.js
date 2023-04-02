@@ -56,8 +56,8 @@ const MyProfileScreen = () => {
         <Typography>Name Here</Typography>
         <ListContainer>
           {renderListItem('My Events', 'list', 'MyEvents')}
-          {renderListItem('About the App', 'information-circle-outline', '')}
-          {renderListItem('Terms & Conditions', 'md-newspaper-outline', '')}
+          {renderListItem('About the App', 'information-circle-outline', 'About')}
+          {renderListItem('Terms & Conditions', 'md-newspaper-outline', 'TermsAndConditions')}
           {renderListItem('Logout', 'exit-outline', 'Home', true)}
         </ListContainer>
       </ScreenContainer>

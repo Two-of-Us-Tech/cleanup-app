@@ -17,6 +17,8 @@ import MyProfileScreen from "./screens/MyProfileScreen";
 import SignupScreen from "./screens/SignupScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
 import ForgetPasswordScreen from "./screens/ForgetPasswordScreen";
+import TermsAndConditionsScreen from "./screens/TermsAndConditionsScreen";
+import AboutScreen from "./screens/AboutScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -52,6 +54,8 @@ export default function App() {
           <Stack.Screen name="MyProfile" component={MyProfileScreen} />
           <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
           <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+          <Stack.Screen name="About" component={AboutScreen} />
+          <Stack.Screen name="TermsAndConditions" component={TermsAndConditionsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>
