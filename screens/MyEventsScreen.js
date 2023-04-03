@@ -28,6 +28,11 @@ const Divider = styled.View`
   width: 100%;
 `;
 
+const NoEventsLabel = styled(Typography)`
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 80px;
+`;
 const MyEventsScreen = () => {
   const renderListHeader = (title) => {
     return (
@@ -45,19 +50,13 @@ const MyEventsScreen = () => {
       <ScreenContainer>
         <EventListContainer showsVerticalScrollIndicator={false}>
           {renderListHeader("This Month")}
-          <ItemInfo
-            day={14}
-            month="Feb"
-            location="Far away location"
-            title="Your event name goes here"
-          />
-          <Gap size={10} direction="vertical" />
-          <ItemInfo
-            day={14}
-            month="Feb"
-            location="Far away location"
-            title="Your event name goes here"
-          />
+          <NoEventsLabel
+            color="darkTransparent"
+            fontSpacing="spaced"
+            fontSize="small"
+          >
+            You have no events assigned yet!
+          </NoEventsLabel>
           {renderListHeader("This Month")}
           <ItemInfo
             day={14}
