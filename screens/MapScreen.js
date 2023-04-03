@@ -3,12 +3,15 @@ import MapView, { Marker } from "react-native-maps";
 import Navigator from "../components/Navigator";
 import StyledScreen from "../components/StyledScreen";
 import Input from "../components/Input";
-import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
+import { Platform } from "react-native";
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
   marginHorizontal: 20,
+  ...Platform.OS === 'android' && {
+    marginTop: 20
+  }
 }));
 
 const StyledMap = styled(MapView)`

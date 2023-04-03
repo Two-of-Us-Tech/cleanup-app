@@ -5,13 +5,14 @@ import Typography from "./Typography";
 import { Ionicons } from "@expo/vector-icons";
 import ProgressIndicator from "./ProgressIndicator";
 import { useNavigation } from "@react-navigation/native";
+import { Platform } from "react-native";
 
 const EventCardContainer = styled.View(({ theme: { colors } }) => ({
   borderRadius: 20,
   background: colors.white,
   position: "relative",
   shadowOpacity: 0.2,
-  elevation: 1,
+  elevation: Platform.OS === 'android' ? 3 : 1,
   shadowRadius: 6,
   shadowOffset: { width: 1, height: 2 },
   shadowColor: colors.opaqueDark,
@@ -50,20 +51,13 @@ const InfoContainer = styled.View(() => ({
 
 const RemoveButton = styled.TouchableOpacity(() => ({}));
 
-const EventCard = ({
-  eventName,
-  date,
-  id,
-  spotsLeft,
-  image,
-  editMode = false,
-}) => {
+const EventCard = ({ eventName, date, id, spotsLeft, image }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
 
   return (
     <EventCardContainer>
-      <ImageContainer source={image} />
+       <ImageContainer source={image} />
       <ContentContainer>
         <Typography font="primaryBold" fontSpacing="spaced">
           {eventName}
@@ -83,7 +77,6 @@ const EventCard = ({
         <Gap size={8} direction="vertical" />
         <LinkButton
           icon="arrow-forward"
-          alignSelf="start"
           fontProps={{ fontSize: "small" }}
           onPress={() => navigation.navigate("Event", { id })}
         >
@@ -93,23 +86,11 @@ const EventCard = ({
       <Gap size={14} direction="vertical" />
 
       <InfoContainer>
-        {!editMode ? (
-          <>
-            <ProgressIndicator percentage={0.75} />
-            <Gap size={6} direction="vertical" />
-            <Typography color="oranged" fontSize="extraSmall">
-              25 spots left
-            </Typography>
-          </>
-        ) : (
-          <RemoveButton>
-            <Ionicons
-              name="ios-trash-outline"
-              size={40}
-              color={colors.primary}
-            />
-          </RemoveButton>
-        )}
+        <ProgressIndicator percentage={0.75} />
+        <Gap size={6} direction="vertical" />
+        <Typography color="oranged" fontSize="extraSmall">
+          25 spots left
+        </Typography>
       </InfoContainer>
     </EventCardContainer>
   );

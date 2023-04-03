@@ -2,6 +2,7 @@ import styled, { useTheme } from "styled-components/native";
 import Typography from "./Typography";
 import Gap from "./Gap";
 import { Ionicons } from '@expo/vector-icons'; 
+import { Platform } from "react-native";
 
 const ItemInfoContainer = styled.View(({ theme: { colors }, }) => ({
   flexDirection: 'row',
@@ -10,7 +11,7 @@ const ItemInfoContainer = styled.View(({ theme: { colors }, }) => ({
   borderRadius: '5px',
   height: '90px',
   shadowOpacity: 0.2,
-  elevation: 1,
+  elevation: Platform.OS === 'android' ? 3 : 1,
   shadowRadius: 2,
   shadowOffset: { width: 1, height: 1 },
   shadowColor: colors.opaqueDark,

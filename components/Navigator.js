@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { routes } from "../config/routes";
 import { useTheme } from "styled-components";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { Platform } from "react-native";
 
 const NavigatorContainer = styled.View(() => ({
   position: "absolute",
@@ -22,7 +23,7 @@ const TabsContainer = styled.View(({ theme: { colors } }) => ({
   borderRadius: 100,
   shadowColor: colors.opaqueDark,
   shadowOpacity: 0.2,
-  elevation: 1,
+  elevation: Platform.OS === 'android' ? 3 : 1,
   shadowRadius: 6,
   shadowOffset: { width: 1, height: 2 },
 }));

@@ -1,9 +1,10 @@
 import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
+import { Platform } from "react-native";
 
 const shadow = {
   shadowOpacity: 0.2,
-  elevation: 1,
+  elevation: Platform.OS === 'android' ? 3 : 1,
   shadowRadius: 6,
   shadowOffset: { width: 1, height: 2 },
 };

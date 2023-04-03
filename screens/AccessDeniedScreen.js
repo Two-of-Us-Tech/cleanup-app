@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Gap from "../components/Gap";
 import { useNavigation } from "@react-navigation/native";
 import LinkButton from "../components/LinkButton";
+import { Platform } from "react-native";
 
 const StyledBlur = styled(BlurView)`
   height: 100%;
@@ -16,7 +17,7 @@ const StyledBlur = styled(BlurView)`
 
 const CardContainer = styled.View(({ theme: { colors } }) => ({
   shadowOpacity: 0.2,
-  elevation: 1,
+  elevation: Platform.OS === 'android' ? 3 : 1,
   shadowRadius: 6,
   shadowOffset: { width: 1, height: 2 },
   shadowColor: colors.opaqueDark,

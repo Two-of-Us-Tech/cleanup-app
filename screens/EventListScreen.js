@@ -6,16 +6,20 @@ import { useState } from "react";
 import EventCard from "../components/EventCard";
 import Gap from "../components/Gap";
 import Navigator from "../components/Navigator";
+import { Platform } from "react-native";
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
   marginHorizontal: 20,
+  ...Platform.OS === 'android' && {
+    marginTop: 30
+  }
 }));
 
 const EventListContainer = styled.ScrollView(() => ({
   marginTop: 20,
   marginTop: 10,
-  marginBottom: 100,
+  marginBottom: Platform.OS === 'android' ? 80 : 100,
   overflow: 'visible'
 }));
 
@@ -61,6 +65,7 @@ const EventListScreen = ({}) => {
             eventName="Cocoa's Beach Cleanup"
             image={exampleImage}
           />
+          <Gap size={28} direction="vertical" />
         </EventListContainer>
       </ScreenContainer>
       <Navigator />

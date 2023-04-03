@@ -5,15 +5,16 @@ import Gap from "../components/Gap";
 
 import Typography from "../components/Typography";
 import ItemInfo from "../components/ItemInfo";
+import { Platform } from "react-native";
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
   marginHorizontal: 20,
-  marginTop: -10,
+  marginTop: Platform.OS === 'android' ?  0 : -10,
 }));
 
 const EventListContainer = styled.ScrollView(() => ({
-  marginBottom: 60,
+  marginBottom: Platform.OS === 'android' ?  100 : 60
 }));
 
 const ListHeader = styled.View`

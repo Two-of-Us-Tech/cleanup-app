@@ -8,11 +8,15 @@ import Button from "../components/Button";
 import MapView, { Marker } from "react-native-maps";
 import Toast from "react-native-toast-message";
 import toastConfig from "../config/toastConfig";
+import { Platform } from "react-native";
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   marginHorizontal: 22,
   position: "relative",
-  zIndex: -1
+  zIndex: -1,
+  ...Platform.OS === 'android' && {
+    marginTop: 20
+  }
 }));
 
 const ImageContainer = styled.Image(() => ({
@@ -23,7 +27,7 @@ const ImageContainer = styled.Image(() => ({
 }));
 
 const ScrollableContent = styled.ScrollView(() => ({
-  marginBottom: 180,
+  marginBottom: Platform.OS === 'android' ? 160 : 180,
 }));
 
 const EventItem = styled.View(() => ({
@@ -47,9 +51,8 @@ const StyledButton = styled(Button)(() => ({
 }));
 
 const EventScreen = ({ }) => {
-  // TODO - Get the params
-  console.log('toastConfig', toastConfig)
   const { colors } = useTheme()
+
   return (
     <StyledScreen showBackButton headerText="Event Details">
       <Toast config={toastConfig} />
