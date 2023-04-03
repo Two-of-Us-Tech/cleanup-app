@@ -1,18 +1,18 @@
-import { useState } from "react";
-import styled from "styled-components/native";
-import Button from "../components/Button";
-import Gap from "../components/Gap";
-import Input from "../components/Input";
-import StyledScreen from "../components/StyledScreen";
-import Typography from "../components/Typography";
-import googleLogo from "../assets/images/google.png";
-import Divider from "../components/Divider";
-import LinkButton from "../components/LinkButton";
+import { useState } from 'react';
+import styled from 'styled-components/native';
+import Button from '../components/Button';
+import Gap from '../components/Gap';
+import Input from '../components/Input';
+import StyledScreen from '../components/StyledScreen';
+import Typography from '../components/Typography';
+import googleLogo from '../assets/images/google.png';
+import Divider from '../components/Divider';
+import LinkButton from '../components/LinkButton';
 
 const HomeScreenContainer = styled.SafeAreaView(() => ({
-  justifyContent: "center",
+  justifyContent: 'center',
   flex: 1,
-  alignItems: "center",
+  alignItems: 'center',
   marginHorizontal: 25,
 }));
 
@@ -21,14 +21,14 @@ const FormContainer = styled.View(() => ({
 }));
 
 const JustifiedButton = styled.View(() => ({
-  alignItems: "flex-end",
+  alignItems: 'flex-end',
   padding: 0,
 }));
 
-const LoginScreen = ({ navigation }) => {
+function LoginScreen({ navigation }) {
   const [formValue, setFormValue] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const onChange = (key, value) => setFormValue({ ...formValue, [key]: value });
@@ -44,14 +44,14 @@ const LoginScreen = ({ navigation }) => {
           <Input
             placeholder="Email"
             value={formValue.email}
-            onChange={(value) => onChange("email", value)}
+            onChange={(value) => onChange('email', value)}
           />
           <Gap size={15} direction="vertical" />
           <Input
             placeholder="Password"
             isPassword
             value={formValue.password}
-            onChange={(value) => onChange("password", value)}
+            onChange={(value) => onChange('password', value)}
           />
           <Gap size={10} direction="vertical" />
           <JustifiedButton>
@@ -80,6 +80,6 @@ const LoginScreen = ({ navigation }) => {
       </HomeScreenContainer>
     </StyledScreen>
   );
-};
+}
 
 export default LoginScreen;

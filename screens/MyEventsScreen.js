@@ -1,20 +1,20 @@
-import styled from "styled-components/native";
-import Navigator from "../components/Navigator";
-import StyledScreen from "../components/StyledScreen";
-import Gap from "../components/Gap";
+import styled from 'styled-components/native';
+import { Platform } from 'react-native';
+import Navigator from '../components/Navigator';
+import StyledScreen from '../components/StyledScreen';
+import Gap from '../components/Gap';
 
-import Typography from "../components/Typography";
-import ItemInfo from "../components/ItemInfo";
-import { Platform } from "react-native";
+import Typography from '../components/Typography';
+import ItemInfo from '../components/ItemInfo';
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
   marginHorizontal: 20,
-  marginTop: Platform.OS === 'android' ?  0 : -10,
+  marginTop: Platform.OS === 'android' ? 0 : -10,
 }));
 
 const EventListContainer = styled.ScrollView(() => ({
-  marginBottom: Platform.OS === 'android' ?  100 : 60
+  marginBottom: Platform.OS === 'android' ? 100 : 60,
 }));
 
 const ListHeader = styled.View`
@@ -34,31 +34,25 @@ const NoEventsLabel = styled(Typography)`
   margin-top: 100px;
   margin-bottom: 80px;
 `;
-const MyEventsScreen = () => {
-  const renderListHeader = (title) => {
-    return (
-      <ListHeader>
-        <Typography font="primaryBold" fontSpacing="spaced">
-          {title}
-        </Typography>
-        <Gap size={10} />
-        <Divider />
-      </ListHeader>
-    );
-  };
+function MyEventsScreen() {
+  const renderListHeader = (title) => (
+    <ListHeader>
+      <Typography font="primaryBold" fontSpacing="spaced">
+        {title}
+      </Typography>
+      <Gap size={10} />
+      <Divider />
+    </ListHeader>
+  );
   return (
     <StyledScreen headerText="My Events">
       <ScreenContainer>
         <EventListContainer showsVerticalScrollIndicator={false}>
-          {renderListHeader("This Month")}
-          <NoEventsLabel
-            color="darkTransparent"
-            fontSpacing="spaced"
-            fontSize="small"
-          >
+          {renderListHeader('This Month')}
+          <NoEventsLabel color="darkTransparent" fontSpacing="spaced" fontSize="small">
             You have no events assigned yet!
           </NoEventsLabel>
-          {renderListHeader("This Month")}
+          {renderListHeader('This Month')}
           <ItemInfo
             day={14}
             month="Feb"
@@ -72,7 +66,7 @@ const MyEventsScreen = () => {
             location="Far away location"
             title="Your event name goes here"
           />
-          {renderListHeader("Past Events")}
+          {renderListHeader('Past Events')}
           <ItemInfo
             isEventDue
             day={14}
@@ -93,6 +87,6 @@ const MyEventsScreen = () => {
       <Navigator />
     </StyledScreen>
   );
-};
+}
 
 export default MyEventsScreen;

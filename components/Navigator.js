@@ -1,25 +1,25 @@
-import styled from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
-import { routes } from "../config/routes";
-import { useTheme } from "styled-components";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { Platform } from "react-native";
+import styled from 'styled-components/native';
+import { Ionicons } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
+import { useTheme } from 'styled-components';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Platform } from 'react-native';
+import routes from '../config/routes';
 
 const NavigatorContainer = styled.View(() => ({
-  position: "absolute",
+  position: 'absolute',
   bottom: 30,
   zIndex: 2,
   paddingHorizontal: 20,
-  overflow: "visible",
-  width: "100%",
+  overflow: 'visible',
+  width: '100%',
 }));
 
 const TabsContainer = styled.View(({ theme: { colors } }) => ({
   background: colors.barColor,
   paddingHorizontal: 10,
-  justifyContent: "space-around",
-  flexDirection: "row",
+  justifyContent: 'space-around',
+  flexDirection: 'row',
   borderRadius: 100,
   shadowColor: colors.opaqueDark,
   shadowOpacity: 0.2,
@@ -28,17 +28,15 @@ const TabsContainer = styled.View(({ theme: { colors } }) => ({
   shadowOffset: { width: 1, height: 2 },
 }));
 
-const TabButton = styled.TouchableOpacity(
-  ({ $selected, theme: { colors } }) => ({
-    height: "100%",
-    position: "relative",
-    padding: 15,
-    borderTopColor: $selected ? colors.dark : "transparent",
-    borderTopWidth: 2,
-  })
-);
+const TabButton = styled.TouchableOpacity(({ $selected, theme: { colors } }) => ({
+  height: '100%',
+  position: 'relative',
+  padding: 15,
+  borderTopColor: $selected ? colors.dark : 'transparent',
+  borderTopWidth: 2,
+}));
 
-const Navigator = () => {
+function Navigator() {
   const {
     colors: { dark, disableColor },
   } = useTheme();
@@ -53,26 +51,26 @@ const Navigator = () => {
   return (
     <NavigatorContainer>
       <TabsContainer>
-        {routes.map(({ icon, route }) => (
+        {routes.map(({ icon, route: routeName }) => (
           <TabButton
-            key={route}
+            key={routeName}
             onPress={() => {
-              if (route !== selectedRoute) {
-                navigation.navigate(route);
+              if (routeName !== selectedRoute) {
+                navigation.navigate(routeName);
               }
             }}
-            $selected={selectedRoute === route}
+            $selected={selectedRoute === routeName}
           >
             <Ionicons
               name={icon}
               size={24}
-              color={selectedRoute === route ? dark : disableColor}
+              color={selectedRoute === routeName ? dark : disableColor}
             />
           </TabButton>
         ))}
       </TabsContainer>
     </NavigatorContainer>
   );
-};
+}
 
 export default Navigator;

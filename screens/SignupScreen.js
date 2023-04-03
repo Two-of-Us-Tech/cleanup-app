@@ -1,17 +1,17 @@
-import styled from "styled-components/native";
-import StyledScreen from "../components/StyledScreen";
-import Typography from "../components/Typography";
-import Button from "../components/Button";
-import Input from "../components/Input";
-import { useState } from "react";
-import LinkButton from "../components/LinkButton";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import ImageSelector from "../components/ImageSelector";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import styled from 'styled-components/native';
+import { useState } from 'react';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import StyledScreen from '../components/StyledScreen';
+import Typography from '../components/Typography';
+import Button from '../components/Button';
+import Input from '../components/Input';
+import LinkButton from '../components/LinkButton';
+import ImageSelector from '../components/ImageSelector';
 
 const StyledContainer = styled.View(() => ({
-  alignItems: "center",
+  alignItems: 'center',
   marginHorizontal: 20,
   marginTop: 38,
 }));
@@ -33,18 +33,18 @@ const StyledButton = styled(Button)`
 `;
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
+  name: Yup.string().required('Name is required'),
+  email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string()
-    .required("Password is required")
-    .min(6, "Password must be at least 6 characters"),
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters'),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required("Password Confirmation is Required"),
-  phoneNumber: Yup.string("").required("Phone number is required"),
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Password Confirmation is Required'),
+  phoneNumber: Yup.string('').required('Phone number is required'),
 });
 
-const SignupScreen = ({ navigation }) => {
+function SignupScreen({ navigation }) {
   const [image, setImage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -61,84 +61,60 @@ const SignupScreen = ({ navigation }) => {
         inputProps={{
           onChangeText: handleChange(key),
           onBlur: handleBlur(key),
-          autoCapitalize: "none",
+          autoCapitalize: 'none',
         }}
         icon={icon}
       />
     );
   };
 
-  const getFieldError = (key, errors, touched) =>
-    touched[key] ? errors[key] : "";
+  const getFieldError = (key, errors, touched) => (touched[key] ? errors[key] : '');
 
   // TODO - Call the actual API
   const onSubmit = () => {
     setIsSubmitting(true);
     setTimeout(() => {
-      navigation.navigate("EventList");
+      navigation.navigate('EventList');
       setIsSubmitting(false);
     }, 2000);
   };
 
   return (
-    <StyledScreen style="secondary" showBackButton>
+    <StyledScreen variant="secondary" showBackButton>
       <StyledContainer>
         <Typography>Sign up by filling the form bellow</Typography>
-        <ImageSelector image={image} onChange={(image) => setImage(image)} />
-        <KeyboardAwareScrollView style={{ width: "100%" }}>
+        <ImageSelector image={image} onChange={(updatedImage) => setImage(updatedImage)} />
+        <KeyboardAwareScrollView style={{ width: '100%' }}>
           <FormContainer>
             <Formik
               enableReinitialize
               initialValues={{
-                name: "",
-                email: "",
-                password: "",
-                confirmPassword: "",
-                phoneNumber: "",
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                phoneNumber: '',
               }}
               validationSchema={validationSchema}
               onSubmit={onSubmit}
             >
               {({ handleSubmit, ...formikProps }) => (
                 <>
+                  {renderInput('Name', 'name', 'person-circle-outline', formikProps)}
+                  {renderInput('Email', 'email', 'at', formikProps)}
+                  {renderInput('Password', 'password', 'lock-closed-outline', formikProps, true)}
                   {renderInput(
-                    "Name",
-                    "name",
-                    "person-circle-outline",
-                    formikProps
-                  )}
-                  {renderInput("Email", "email", "at", formikProps)}
-                  {renderInput(
-                    "Password",
-                    "password",
-                    "lock-closed-outline",
+                    'Confirm Password',
+                    'confirmPassword',
+                    'lock-closed-outline',
                     formikProps,
                     true
                   )}
-                  {renderInput(
-                    "Confirm Password",
-                    "confirmPassword",
-                    "lock-closed-outline",
-                    formikProps,
-                    true
-                  )}
-                  {renderInput(
-                    "Phone Number",
-                    "phoneNumber",
-                    "call",
-                    formikProps
-                  )}
-                  <StyledButton
-                    onPress={handleSubmit}
-                    withShadow
-                    loading={isSubmitting}
-                  >
+                  {renderInput('Phone Number', 'phoneNumber', 'call', formikProps)}
+                  <StyledButton onPress={handleSubmit} withShadow loading={isSubmitting}>
                     Sign Up
                   </StyledButton>
-                  <StyledLink
-                    onPress={() => navigation.navigate("Login")}
-                    hideBorder
-                  >
+                  <StyledLink onPress={() => navigation.navigate('Login')} hideBorder>
                     Already have an account? Login
                   </StyledLink>
                 </>
@@ -149,6 +125,6 @@ const SignupScreen = ({ navigation }) => {
       </StyledContainer>
     </StyledScreen>
   );
-};
+}
 
 export default SignupScreen;

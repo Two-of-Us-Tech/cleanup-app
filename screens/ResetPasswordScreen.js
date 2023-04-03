@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components/native";
-import Button from "../components/Button";
-import Gap from "../components/Gap";
-import Input from "../components/Input";
-import StyledScreen from "../components/StyledScreen";
-import Typography from "../components/Typography";
-import { Formik } from "formik";
-import * as Yup from "yup";
+import { useState } from 'react';
+import styled from 'styled-components/native';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import Button from '../components/Button';
+import Gap from '../components/Gap';
+import Input from '../components/Input';
+import StyledScreen from '../components/StyledScreen';
+import Typography from '../components/Typography';
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
-    .required("Password is required")
-    .min(6, "Password must be at least 6 characters"),
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters'),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required("Password Confirmation is Required"),
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Password Confirmation is Required'),
 });
 
 const ScreenContainer = styled.View`
@@ -38,19 +38,19 @@ const StyledButton = styled(Button)`
   align-self: center;
 `;
 
-const ForgetPasswordScreen = () => {
+function ForgetPasswordScreen() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = () => {
     setIsSubmitting(true);
     setTimeout(() => {
-      //TODO - Implement API call
+      // TODO - Implement API call
       setIsSubmitting(false);
     }, 2000);
   };
 
   return (
-    <StyledScreen style="secondary" showBackButton>
+    <StyledScreen variant="secondary" showBackButton>
       <ScreenContainer>
         <Typography>Forgot Password?</Typography>
         <TextDivider />
@@ -58,42 +58,35 @@ const ForgetPasswordScreen = () => {
           <Formik
             enableReinitialize
             initialValues={{
-              password: "",
-              confirmPassword: "",
+              password: '',
+              confirmPassword: '',
             }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {({
-              handleSubmit,
-              handleBlur,
-              handleChange,
-              values,
-              errors,
-              touched,
-            }) => (
+            {({ handleSubmit, handleBlur, handleChange, values, errors, touched }) => (
               <>
                 <Input
                   placeholder="New Password"
                   icon="at"
-                  error={touched.password ? errors.password : ""}
+                  error={touched.password ? errors.password : ''}
                   value={values.password}
                   isPassword
                   inputProps={{
-                    onChangeText: handleChange("password"),
-                    onBlur: handleBlur("password"),
+                    onChangeText: handleChange('password'),
+                    onBlur: handleBlur('password'),
                   }}
                 />
                 <Gap size={10} direction="vertical" />
                 <Input
                   placeholder="Type your email"
                   icon="at"
-                  error={touched.confirmPassword ? errors.confirmPassword : ""}
+                  error={touched.confirmPassword ? errors.confirmPassword : ''}
                   value={values.confirmPassword}
                   isPassword
                   inputProps={{
-                    onChangeText: handleChange("confirmPassword"),
-                    onBlur: handleBlur("confirmPassword"),
+                    onChangeText: handleChange('confirmPassword'),
+                    onBlur: handleBlur('confirmPassword'),
                   }}
                 />
                 <Gap size={10} direction="vertical" />
@@ -107,6 +100,6 @@ const ForgetPasswordScreen = () => {
       </ScreenContainer>
     </StyledScreen>
   );
-};
+}
 
 export default ForgetPasswordScreen;

@@ -1,18 +1,18 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import styled from "styled-components/native";
-import Typography from "./Typography";
-import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from 'react-native-safe-area-context';
+import styled from 'styled-components/native';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import Typography from './Typography';
 
 const ScreenContainer = styled.View(({ theme: { colors } }) => ({
   flex: 1,
-  position: "relative",
-  overflow: "hidden",
-  background: colors.white
+  position: 'relative',
+  overflow: 'hidden',
+  background: colors.white,
 }));
 
 const CircleTwo = styled.View(({ theme: { colors } }) => ({
-  position: "absolute",
+  position: 'absolute',
   width: 432,
   height: 417,
   borderRadius: 1000,
@@ -23,7 +23,7 @@ const CircleTwo = styled.View(({ theme: { colors } }) => ({
 }));
 
 const CircleOne = styled.View(({ theme: { colors } }) => ({
-  position: "absolute",
+  position: 'absolute',
   width: 468,
   height: 474,
   zIndex: -1,
@@ -34,20 +34,20 @@ const CircleOne = styled.View(({ theme: { colors } }) => ({
 }));
 
 const SecondaryItemContainer = styled.View(() => ({
-  position: "absolute",
+  position: 'absolute',
   top: 0,
   left: 0,
   right: 0,
   bottom: 0,
-  justifyContent: "center",
-  alignItems: "center",
+  justifyContent: 'center',
+  alignItems: 'center',
 }));
 
 const SecondaryCircle = styled.View(({ theme: { colors } }) => ({
-  position: "absolute",
+  position: 'absolute',
   bottom: 0,
   zIndex: -1,
-  height: "82%",
+  height: '82%',
   width: 700,
   background: colors.tertiary,
   borderTopLeftRadius: 1000,
@@ -67,25 +67,18 @@ const StyledIconButton = styled.TouchableOpacity`
   z-index: 1;
 `;
 
-const StyledScreen = ({
-  children,
-  style = "default",
-  headerText,
-  showBackButton,
-  ...props
-}) => {
-  const navigate = useNavigation()
+function StyledScreen({ children, variant = 'default', headerText, showBackButton, ...props }) {
+  const navigate = useNavigation();
 
   return (
     <ScreenContainer {...props}>
-
-      {style === "default" && (
+      {variant === 'default' && (
         <>
           <CircleOne />
           <CircleTwo />
         </>
       )}
-      {style === "secondary" && (
+      {variant === 'secondary' && (
         <SecondaryItemContainer>
           <SecondaryCircle />
         </SecondaryItemContainer>
@@ -100,11 +93,7 @@ const StyledScreen = ({
               </StyledIconButton>
             )}
             {headerText && (
-              <Typography
-                color="opaqueDark"
-                font="primaryBold"
-                fontSpacing="spaced"
-              >
+              <Typography color="opaqueDark" font="primaryBold" fontSpacing="spaced">
                 {headerText}
               </Typography>
             )}
@@ -114,6 +103,6 @@ const StyledScreen = ({
       {children}
     </ScreenContainer>
   );
-};
+}
 
 export default StyledScreen;

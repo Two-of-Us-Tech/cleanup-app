@@ -1,20 +1,20 @@
-import styled from "styled-components/native";
-import HomeImageHome from "../assets/images/login-image.png";
-import Button from "../components/Button";
-import Gap from "../components/Gap";
-import LinkButton from "../components/LinkButton";
-import Typography from "../components/Typography";
+import styled from 'styled-components/native';
+import HomeImageHome from '../assets/images/login-image.png';
+import Button from '../components/Button';
+import Gap from '../components/Gap';
+import LinkButton from '../components/LinkButton';
+import Typography from '../components/Typography';
 
 const HomeScreenContainer = styled.SafeAreaView(({ theme: { colors } }) => ({
   flex: 1,
-  position: "relative",
+  position: 'relative',
   background: colors.white,
-  alignItems: "center",
-  justifyContent: "center",
+  alignItems: 'center',
+  justifyContent: 'center',
 }));
 
 const HomeImage = styled.Image(() => ({
-  position: "absolute",
+  position: 'absolute',
   bottom: 0,
   right: 0,
   width: 488,
@@ -24,22 +24,22 @@ const HomeImage = styled.Image(() => ({
 
 const ContentContainer = styled.View(() => ({
   marginBottom: 220,
-  alignItems: "center",
+  alignItems: 'center',
 }));
 
 const ButtonsContainer = styled.View(() => ({
   marginTop: 55,
-  alignItems: 'center'
+  alignItems: 'center',
 }));
 
 const TextContainer = styled.View(() => ({
-  display: "flex",
+  display: 'flex',
   gap: 10,
-  alignItems: "center",
+  alignItems: 'center',
   marginHorizontal: 10,
 }));
 
-const HomeScreen = ({ navigation }) => {
+function HomeScreen({ navigation }) {
   return (
     <HomeScreenContainer>
       <ContentContainer>
@@ -53,12 +53,9 @@ const HomeScreen = ({ navigation }) => {
           </Typography>
         </TextContainer>
         <ButtonsContainer>
-          <Button onPress={() => navigation.navigate("Login")}>Login</Button>
+          <Button onPress={() => navigation.navigate('Login')}>Login</Button>
           <Gap size={12} direction="vertical" />
-          <LinkButton
-            alignSelf="center"
-            onPress={() => navigation.navigate("EventList")}
-          >
+          <LinkButton alignSelf="center" onPress={() => navigation.navigate('EventList')}>
             Find an Event
           </LinkButton>
         </ButtonsContainer>
@@ -66,6 +63,6 @@ const HomeScreen = ({ navigation }) => {
       <HomeImage source={HomeImageHome} />
     </HomeScreenContainer>
   );
-};
+}
 
 export default HomeScreen;

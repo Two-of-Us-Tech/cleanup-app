@@ -1,6 +1,5 @@
-import { ActivityIndicator } from "react-native";
-import styled from "styled-components/native";
-import { Platform } from "react-native";
+import { ActivityIndicator, Platform } from 'react-native';
+import styled from 'styled-components/native';
 
 const shadow = {
   shadowOpacity: 0.2,
@@ -11,17 +10,17 @@ const shadow = {
 
 const ButtonContainer = styled.TouchableOpacity(
   ({ theme: { colors }, $variant, $withShadow, $loading }) => ({
-    alignItems: "center",
+    alignItems: 'center',
     paddingHorizontal: 40,
     paddingVertical: 10,
     background: colors.primary,
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     borderRadius: 5,
-    ...($variant === "rounded" && {
+    ...($variant === 'rounded' && {
       borderRadius: 20,
     }),
-    ...($variant === "white" && {
+    ...($variant === 'white' && {
       background: colors.white,
     }),
     ...($withShadow && {
@@ -29,46 +28,44 @@ const ButtonContainer = styled.TouchableOpacity(
       ...shadow,
     }),
     ...($loading && {
-      background: "#ccc",
+      background: '#ccc',
     }),
   })
 );
 
-const ButtonText = styled.Text(
-  ({ theme: { colors, fonts, fontSize }, $variant, $fontSize }) => ({
-    color: colors.white,
-    fontFamily: fonts.primary,
-    fontSize: fontSize[$fontSize],
-    ...($variant === "white" && {
-      color: colors.opaqueDark,
-    }),
-  })
-);
+const ButtonText = styled.Text(({ theme: { colors, fonts, fontSize }, $variant, $fontSize }) => ({
+  color: colors.white,
+  fontFamily: fonts.primary,
+  fontSize: fontSize[$fontSize],
+  ...($variant === 'white' && {
+    color: colors.opaqueDark,
+  }),
+}));
 
 const StyledImage = styled.Image(({ isLeft, $fontSize }) => ({
   marginRight: isLeft ? 10 : 0,
   marginLeft: !isLeft ? 10 : 0,
-  ...(["extraSmall", "small", "regular"].includes($fontSize) && {
+  ...(['extraSmall', 'small', 'regular'].includes($fontSize) && {
     height: 25,
     width: 25,
   }),
-  ...(["semiLarge", "large", "larger", "xl"].includes($fontSize) && {
+  ...(['semiLarge', 'large', 'larger', 'xl'].includes($fontSize) && {
     height: 30,
     width: 30,
   }),
 }));
 
-const Button = ({
+function Button({
   children,
-  variant = "default",
+  variant = 'default',
   onPress,
-  fontSize = "regular",
+  fontSize = 'regular',
   withShadow = false,
   iconLeft = null,
   iconRight = null,
   loading,
   ...props
-}) => {
+}) {
   return (
     <ButtonContainer
       $variant={variant}
@@ -78,9 +75,7 @@ const Button = ({
       disabled={!!loading}
       {...props}
     >
-      {iconLeft && (
-        <StyledImage isLeft source={iconLeft} $fontSize={fontSize} />
-      )}
+      {iconLeft && <StyledImage isLeft source={iconLeft} $fontSize={fontSize} />}
       {loading ? (
         <ActivityIndicator />
       ) : (
@@ -89,11 +84,9 @@ const Button = ({
         </ButtonText>
       )}
 
-      {iconRight && (
-        <StyledImage source={iconRight} style={{ width: 25, height: 33 }} />
-      )}
+      {iconRight && <StyledImage source={iconRight} style={{ width: 25, height: 33 }} />}
     </ButtonContainer>
   );
-};
+}
 
 export default Button;

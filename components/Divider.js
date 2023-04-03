@@ -1,27 +1,27 @@
-import styled from "styled-components/native";
-import Typography from "./Typography";
+import styled from 'styled-components/native';
+import Typography from './Typography';
 
 const DividerBorder = styled.View(({ theme: { colors } }) => ({
   height: 1,
   background: colors.darkTransparent,
-  width: "100%",
+  width: '100%',
 }));
 
 const DividerContainer = styled.View(() => ({
   margin: 35,
-  width: "100%",
-  position: "relative",
+  width: '100%',
+  position: 'relative',
 }));
 
 const TextContainer = styled.View(() => ({
-  position: "absolute",
+  position: 'absolute',
   alignSelf: 'center',
   bottom: -9,
   zIndex: 1,
-  background: 'white'
+  background: 'white',
 }));
 
-const Divider = ({ dividerText }) => {
+function Divider({ dividerText }) {
   return (
     <DividerContainer>
       {dividerText && (
@@ -32,6 +32,6 @@ const Divider = ({ dividerText }) => {
       <DividerBorder />
     </DividerContainer>
   );
-};
+}
 
 export default Divider;

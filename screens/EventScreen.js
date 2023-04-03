@@ -1,26 +1,26 @@
-import styled, { useTheme } from "styled-components/native";
-import StyledScreen from "../components/StyledScreen";
-import Typography from "../components/Typography";
-import { Ionicons } from "@expo/vector-icons";
-import exampleImage from "../assets/images/example.jpeg";
-import Gap from "../components/Gap";
-import Button from "../components/Button";
-import MapView, { Marker } from "react-native-maps";
-import Toast from "react-native-toast-message";
-import toastConfig from "../config/toastConfig";
-import { Platform } from "react-native";
+import styled, { useTheme } from 'styled-components/native';
+import { Ionicons } from '@expo/vector-icons';
+import MapView, { Marker } from 'react-native-maps';
+import Toast from 'react-native-toast-message';
+import { Platform } from 'react-native';
+import StyledScreen from '../components/StyledScreen';
+import Typography from '../components/Typography';
+import exampleImage from '../assets/images/example.jpeg';
+import Gap from '../components/Gap';
+import Button from '../components/Button';
+import toastConfig from '../config/toastConfig';
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   marginHorizontal: 22,
-  position: "relative",
+  position: 'relative',
   zIndex: -1,
-  ...Platform.OS === 'android' && {
-    marginTop: 20
-  }
+  ...(Platform.OS === 'android' && {
+    marginTop: 20,
+  }),
 }));
 
 const ImageContainer = styled.Image(() => ({
-  width: "100%",
+  width: '100%',
   height: 203,
   borderRadius: 15,
   marginTop: 10,
@@ -31,12 +31,12 @@ const ScrollableContent = styled.ScrollView(() => ({
 }));
 
 const EventItem = styled.View(() => ({
-  flexDirection: "row",
-  alignItems: "center",
+  flexDirection: 'row',
+  alignItems: 'center',
 }));
 
 const MapContainer = styled(MapView)({
-  width: "100%",
+  width: '100%',
   height: 198,
   borderRadius: 15,
   marginTop: 15,
@@ -44,25 +44,21 @@ const MapContainer = styled(MapView)({
 });
 
 const StyledButton = styled(Button)(() => ({
-  position: "absolute",
-  alignSelf: "center",
+  position: 'absolute',
+  alignSelf: 'center',
   bottom: 30,
-  width: "90%",
+  width: '90%',
 }));
 
-const EventScreen = ({ }) => {
-  const { colors } = useTheme()
+function EventScreen() {
+  const { colors } = useTheme();
 
   return (
     <StyledScreen showBackButton headerText="Event Details">
       <Toast config={toastConfig} />
       <ScreenContainer>
         <ScrollableContent showsVerticalScrollIndicator={false}>
-          <Typography
-            fontSize="regular"
-            font="primaryBold"
-            fontSpacing="spaced"
-          >
+          <Typography fontSize="regular" font="primaryBold" fontSpacing="spaced">
             Coco Beach Cleanup
           </Typography>
           <ImageContainer source={exampleImage} />
@@ -71,11 +67,7 @@ const EventScreen = ({ }) => {
           <EventItem>
             <Ionicons name="calendar-outline" size={21} color="black" />
             <Gap size={10} />
-            <Typography
-              fontSize="extraSmall"
-              color="opaqueDark"
-              fontSpacing="spaced"
-            >
+            <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
               February, 14th 2023
             </Typography>
           </EventItem>
@@ -83,11 +75,7 @@ const EventScreen = ({ }) => {
           <EventItem>
             <Ionicons name="time-outline" size={21} color="black" />
             <Gap size={10} />
-            <Typography
-              fontSize="extraSmall"
-              color="opaqueDark"
-              fontSpacing="spaced"
-            >
+            <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
               12pm to 5pm
             </Typography>
           </EventItem>
@@ -95,11 +83,7 @@ const EventScreen = ({ }) => {
           <EventItem>
             <Ionicons name="list-outline" size={21} color="black" />
             <Gap size={10} />
-            <Typography
-              fontSize="extraSmall"
-              color="oranged"
-              fontSpacing="spaced"
-            >
+            <Typography fontSize="extraSmall" color="oranged" fontSpacing="spaced">
               20 spots available
             </Typography>
           </EventItem>
@@ -131,11 +115,7 @@ const EventScreen = ({ }) => {
           <EventItem>
             <Ionicons name="shirt-outline" size={21} color="black" />
             <Gap size={10} />
-            <Typography
-              fontSize="extraSmall"
-              color="opaqueDark"
-              fontSpacing="spaced"
-            >
+            <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
               Comfortable clothes (gloves and boots if you have some!)
             </Typography>
           </EventItem>
@@ -143,11 +123,7 @@ const EventScreen = ({ }) => {
           <EventItem>
             <Ionicons name="fast-food-outline" size={21} color="black" />
             <Gap size={10} />
-            <Typography
-              fontSize="extraSmall"
-              color="opaqueDark"
-              fontSpacing="spaced"
-            >
+            <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
               We offer lunch and snacks
             </Typography>
           </EventItem>
@@ -155,11 +131,7 @@ const EventScreen = ({ }) => {
           <EventItem>
             <Ionicons name="star-outline" size={21} color="black" />
             <Gap size={10} />
-            <Typography
-              fontSize="extraSmall"
-              color="opaqueDark"
-              fontSpacing="spaced"
-            >
+            <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
               No experience needed
             </Typography>
           </EventItem>
@@ -170,9 +142,9 @@ const EventScreen = ({ }) => {
         withShadow
         onPress={() => {
           Toast.show({
-            type: "success",
+            type: 'success',
             props: {
-              label: "This Event was added to your list!",
+              label: 'This Event was added to your list!',
               iconColor: colors.primary,
               onHide: () => Toast.hide(),
             },
@@ -183,6 +155,6 @@ const EventScreen = ({ }) => {
       </StyledButton>
     </StyledScreen>
   );
-};
+}
 
 export default EventScreen;

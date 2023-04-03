@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components/native";
-import Button from "../components/Button";
-import Gap from "../components/Gap";
-import Input from "../components/Input";
-import StyledScreen from "../components/StyledScreen";
-import Typography from "../components/Typography";
+import { useEffect, useState } from 'react';
+import styled from 'styled-components/native';
+import Button from '../components/Button';
+import Gap from '../components/Gap';
+import Input from '../components/Input';
+import StyledScreen from '../components/StyledScreen';
+import Typography from '../components/Typography';
 
 const ScreenContainer = styled.View`
   position: relative;
@@ -27,25 +27,26 @@ const StyledButton = styled(Button)`
   align-self: center;
 `;
 
-const ForgetPasswordScreen = () => {
+function ForgetPasswordScreen() {
   const [email, setEmail] = useState();
   const [error, setError] = useState(false);
 
   const onSubmit = () => {
     if (!email) {
-      setError("Email is required");
+      setError('Email is required');
     } else {
+      // TODO - do something
     }
   };
 
   useEffect(() => {
     if (email && error) {
-      setError(null)
+      setError(null);
     }
-  }, [email]);
+  }, [email, error]);
 
   return (
-    <StyledScreen style="secondary" showBackButton>
+    <StyledScreen variant="secondary" showBackButton>
       <ScreenContainer>
         <Typography>Forgot Password?</Typography>
         <TextDivider />
@@ -63,6 +64,6 @@ const ForgetPasswordScreen = () => {
       </ScreenContainer>
     </StyledScreen>
   );
-};
+}
 
 export default ForgetPasswordScreen;

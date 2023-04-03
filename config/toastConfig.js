@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import Typography from "../components/Typography";
-import { Ionicons } from "@expo/vector-icons";
-import Gap from "../components/Gap";
+import styled from 'styled-components';
+import { Ionicons } from '@expo/vector-icons';
+import Typography from '../components/Typography';
+import Gap from '../components/Gap';
 
 const SuccessToastContainer = styled.View`
   position: relative;
@@ -10,7 +10,7 @@ const SuccessToastContainer = styled.View`
   border-radius: 5px;
   margin-horizontal: 26px;
   margin-top: 20px;
-  background: ${props => props.theme.colors.white};
+  background: ${(props) => props.theme.colors.white};
   align-items: center;
   padding: 16px;
   flex-direction: row;
@@ -19,12 +19,12 @@ const SuccessToastContainer = styled.View`
 
 const DismissButton = styled.TouchableOpacity`
   align-self: flex-start;
-`
+`;
 
 const StyledTypography = styled(Typography)`
   max-width: 80%;
-  margin-right : 20px;
-`
+  margin-right: 20px;
+`;
 
 const toastConfig = {
   success: ({ props: { label, iconColor, onHide } }) => (
@@ -33,10 +33,10 @@ const toastConfig = {
       <Gap size={10} />
       <StyledTypography fontSize="small">{label}</StyledTypography>
       <DismissButton onPress={() => onHide()}>
-        <Ionicons name="md-close" size={26} color={iconColor} />  
+        <Ionicons name="md-close" size={26} color={iconColor} />
       </DismissButton>
     </SuccessToastContainer>
-  )
+  ),
 };
 
 export default toastConfig;

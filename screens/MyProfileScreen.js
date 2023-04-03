@@ -1,12 +1,12 @@
-import { useState } from "react";
-import styled, { useTheme } from "styled-components/native";
-import Navigator from "../components/Navigator";
-import StyledScreen from "../components/StyledScreen";
-import Typography from "../components/Typography";
-import ImageSelector from "../components/ImageSelector";
-import Gap from "../components/Gap";
-import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useState } from 'react';
+import styled, { useTheme } from 'styled-components/native';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import Navigator from '../components/Navigator';
+import StyledScreen from '../components/StyledScreen';
+import Typography from '../components/Typography';
+import ImageSelector from '../components/ImageSelector';
+import Gap from '../components/Gap';
 
 const ScreenContainer = styled.SafeAreaView`
   flex: 1;
@@ -30,10 +30,10 @@ const ItemDivider = styled.View`
   margin-vertical: 15px;
 `;
 
-const MyProfileScreen = () => {
+function MyProfileScreen() {
   const [image, setImage] = useState(null);
-  const { colors } = useTheme()
-  const navigation = useNavigation()
+  const { colors } = useTheme();
+  const navigation = useNavigation();
 
   const renderListItem = (text, icon, route, isLast = false) => (
     <>
@@ -49,9 +49,9 @@ const MyProfileScreen = () => {
   );
 
   return (
-    <StyledScreen style="secondary" headerText="My Profile">
+    <StyledScreen variant="secondary" headerText="My Profile">
       <ScreenContainer>
-        <ImageSelector image={image} onChange={(image) => setImage(image)} />
+        <ImageSelector image={image} onChange={(updatedImage) => setImage(updatedImage)} />
         <Gap size={20} direction="vertical" />
         <Typography>Name Here</Typography>
         <ListContainer>
@@ -65,6 +65,6 @@ const MyProfileScreen = () => {
       <Navigator />
     </StyledScreen>
   );
-};
+}
 
 export default MyProfileScreen;

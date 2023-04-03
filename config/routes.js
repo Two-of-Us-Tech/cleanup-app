@@ -1,6 +1,6 @@
-export const routes = [
+export default [
   { route: 'MyEvents', icon: 'heart-outline' },
   { route: 'Map', icon: 'location-sharp' },
   { route: 'MyProfile', icon: 'person-outline' },
-  { route: 'EventList', icon: 'calendar-outline' }
-]
+  { route: 'EventList', icon: 'calendar-outline' },
+];

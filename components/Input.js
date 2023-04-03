@@ -1,11 +1,11 @@
-import styled from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
-import { useTheme } from "styled-components";
-import { useState } from "react";
-import Typography from "./Typography";
-import Gap from "./Gap";
+import styled from 'styled-components/native';
+import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from 'styled-components';
+import { useState } from 'react';
+import Typography from './Typography';
+import Gap from './Gap';
 
-const StyledInput = styled.TextInput(({}) => ({
+const StyledInput = styled.TextInput(() => ({
   flex: 1,
   padding: 12,
   fontSize: 16,
@@ -13,10 +13,10 @@ const StyledInput = styled.TextInput(({}) => ({
 
 const InputContainer = styled.View(({ theme: { colors }, $error }) => ({
   background: colors.inputColor,
-  border: "1px solid transparent",
+  border: '1px solid transparent',
   borderRadius: 5,
-  flexDirection: "row",
-  alignItems: "center",
+  flexDirection: 'row',
+  alignItems: 'center',
   ...($error && {
     borderColor: colors.orange,
   }),
@@ -27,21 +27,21 @@ const IconContainer = styled.View(() => ({
 }));
 
 const IconButton = styled.TouchableOpacity(() => ({
-  transform: "translateX(-20px)",
+  transform: 'translateX(-20px)',
 }));
 
-const Input = ({
+function Input({
   onChange,
   isPassword,
-  value = "",
-  placeholder = "",
+  value = '',
+  placeholder = '',
   icon,
   buttonIcon,
   inputProps,
   error,
   gapSize,
   ...props
-}) => {
+}) {
   const { colors } = useTheme();
   const [secureEntry, setSecureEntry] = useState(isPassword);
 
@@ -63,7 +63,7 @@ const Input = ({
         {isPassword && (
           <IconButton onPress={() => setSecureEntry(!secureEntry)}>
             <Ionicons
-              name={secureEntry ? "eye-outline" : "eye-off-outline"}
+              name={secureEntry ? 'eye-outline' : 'eye-off-outline'}
               size={20}
               color={colors.primary}
             />
@@ -71,11 +71,11 @@ const Input = ({
         )}
       </InputContainer>
       <Typography fontSize="extraSmall" color="oranged">
-        {error || ""}
+        {error || ''}
       </Typography>
       {gapSize && <Gap size={gapSize} direction="vertical" />}
     </>
   );
-};
+}
 
 export default Input;

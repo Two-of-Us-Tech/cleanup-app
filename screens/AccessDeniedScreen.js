@@ -1,14 +1,13 @@
-import StyledScreen from "../components/StyledScreen";
-import Typography from "../components/Typography";
-import Button from "../components/Button";
-import { BlurView } from "expo-blur";
-import styled from "styled-components";
-import { SafeAreaView, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import Gap from "../components/Gap";
-import { useNavigation } from "@react-navigation/native";
-import LinkButton from "../components/LinkButton";
-import { Platform } from "react-native";
+import { BlurView } from 'expo-blur';
+import styled from 'styled-components';
+import { SafeAreaView, TouchableOpacity, Platform } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import Gap from '../components/Gap';
+import LinkButton from '../components/LinkButton';
+import Button from '../components/Button';
+import Typography from '../components/Typography';
+import StyledScreen from '../components/StyledScreen';
 
 const StyledBlur = styled(BlurView)`
   height: 100%;
@@ -34,13 +33,13 @@ const TextContainer = styled.View`
 
 const CenteredText = styled(Typography)`
   text-align: center;
-`
+`;
 
 const CenteredLink = styled(LinkButton)`
   align-self: center;
-` 
+`;
 
-const AccessDeniedScreen = () => {
+function AccessDeniedScreen() {
   const navigation = useNavigation();
 
   return (
@@ -56,20 +55,14 @@ const AccessDeniedScreen = () => {
                 Ops!
               </Typography>
               <Gap size={10} direction="vertical" />
-              <CenteredText
-                color="opaquePrimary"
-                fontSize="small"
-                fontSpacing="spaced"
-              >
+              <CenteredText color="opaquePrimary" fontSize="small" fontSpacing="spaced">
                 Log in or create an account to have access to all features.
               </CenteredText>
             </TextContainer>
             <Gap size={30} direction="vertical" />
-            <Button onPress={() => navigation.navigate("Signup")}>
-              Sign Up
-            </Button>
+            <Button onPress={() => navigation.navigate('Signup')}>Sign Up</Button>
             <Gap size={10} direction="vertical" />
-            <CenteredLink hideBorder size="small" onPress={() => navigation.navigate("Login")}>
+            <CenteredLink hideBorder size="small" onPress={() => navigation.navigate('Login')}>
               Already have an account? Login
             </CenteredLink>
           </CardContainer>
@@ -77,6 +70,6 @@ const AccessDeniedScreen = () => {
       </StyledBlur>
     </StyledScreen>
   );
-};
+}
 
 export default AccessDeniedScreen;

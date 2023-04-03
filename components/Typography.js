@@ -1,31 +1,33 @@
-import styled from "styled-components/native"
+import styled from 'styled-components/native';
 
-const StyledText = styled.Text(({
-  $color,
-  $font,
-  $fontSize,
-  $fontSpacing,
-  $textAlign,
-  theme: { colors, fonts, fontSize, fontSpacing }
-}) => ({
-  color: colors[$color],
-  fontFamily: fonts[$font],
-  fontSize: fontSize[$fontSize],
-  letterSpacing: fontSpacing[$fontSpacing],
-  textAlign:  $textAlign,
-}))
+const StyledText = styled.Text(
+  ({
+    $color,
+    $font,
+    $fontSize,
+    $fontSpacing,
+    $textAlign,
+    theme: { colors, fonts, fontSize, fontSpacing },
+  }) => ({
+    color: colors[$color],
+    fontFamily: fonts[$font],
+    fontSize: fontSize[$fontSize],
+    letterSpacing: fontSpacing[$fontSpacing],
+    textAlign: $textAlign,
+  })
+);
 
-const Typography = ({
-  color = "primary",
-  font = "primary",
-  fontSize = "regular",
-  fontSpacing = "regular",
-  textAlign = "left",
+function Typography({
+  color = 'primary',
+  font = 'primary',
+  fontSize = 'regular',
+  fontSpacing = 'regular',
+  textAlign = 'left',
   children,
   ...props
-}) => {
+}) {
   return (
-    <StyledText 
+    <StyledText
       $color={color}
       $font={font}
       $fontSize={fontSize}
@@ -35,7 +37,7 @@ const Typography = ({
     >
       {children}
     </StyledText>
-  )
+  );
 }
 
-export default Typography
+export default Typography;

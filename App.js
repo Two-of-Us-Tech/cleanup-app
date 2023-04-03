@@ -1,33 +1,34 @@
-import { useFonts } from "expo-font";
+/* eslint-disable global-require */
+import { useFonts } from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ThemeProvider } from 'styled-components/native';
 import defaultTheme, {
   primaryFontName,
   primaryFontNameBold,
   secondaryFontName,
-} from "./theme/config";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "./screens/LoginScreen";
-import HomeScreen from "./screens/HomeScreen";
-import { ThemeProvider } from "styled-components/native";
-import EventListScreen from "./screens/EventListScreen";
-import EventScreen from "./screens/EventScreen";
-import MyEventsScreen from "./screens/MyEventsScreen";
-import MapScreen from "./screens/MapScreen";
-import MyProfileScreen from "./screens/MyProfileScreen";
-import SignupScreen from "./screens/SignupScreen";
-import ResetPasswordScreen from "./screens/ResetPasswordScreen";
-import ForgetPasswordScreen from "./screens/ForgetPasswordScreen";
-import TermsAndConditionsScreen from "./screens/TermsAndConditionsScreen";
-import AboutScreen from "./screens/AboutScreen";
-import AccessDeniedScreen from "./screens/AccessDeniedScreen";
+} from './theme/config';
+import LoginScreen from './screens/LoginScreen';
+import HomeScreen from './screens/HomeScreen';
+import EventListScreen from './screens/EventListScreen';
+import EventScreen from './screens/EventScreen';
+import MyEventsScreen from './screens/MyEventsScreen';
+import MapScreen from './screens/MapScreen';
+import MyProfileScreen from './screens/MyProfileScreen';
+import SignupScreen from './screens/SignupScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
+import ForgetPasswordScreen from './screens/ForgetPasswordScreen';
+import TermsAndConditionsScreen from './screens/TermsAndConditionsScreen';
+import AboutScreen from './screens/AboutScreen';
+import AccessDeniedScreen from './screens/AccessDeniedScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    [primaryFontName]: require("./assets/fonts/manrope-bold.ttf"),
-    [primaryFontNameBold]: require("./assets/fonts/manrope-extrabold.ttf"),
-    [secondaryFontName]: require("./assets/fonts/times-new-bold.ttf"),
+    [primaryFontName]: require('./assets/fonts/manrope-bold.ttf'),
+    [primaryFontNameBold]: require('./assets/fonts/manrope-extrabold.ttf'),
+    [secondaryFontName]: require('./assets/fonts/times-new-bold.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -41,7 +42,7 @@ export default function App() {
           initialRouteName="Home"
           screenOptions={{
             headerShown: false,
-            animation: "none",
+            animation: 'none',
             gestureEnabled: false,
           }}
         >

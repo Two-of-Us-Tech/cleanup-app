@@ -1,17 +1,17 @@
-import styled from "styled-components/native";
-import MapView, { Marker } from "react-native-maps";
-import Navigator from "../components/Navigator";
-import StyledScreen from "../components/StyledScreen";
-import Input from "../components/Input";
-import { useState } from "react";
-import { Platform } from "react-native";
+import styled from 'styled-components/native';
+import MapView, { Marker } from 'react-native-maps';
+import { useState } from 'react';
+import { Platform } from 'react-native';
+import Navigator from '../components/Navigator';
+import StyledScreen from '../components/StyledScreen';
+import Input from '../components/Input';
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
   marginHorizontal: 20,
-  ...Platform.OS === 'android' && {
-    marginTop: 20
-  }
+  ...(Platform.OS === 'android' && {
+    marginTop: 20,
+  }),
 }));
 
 const StyledMap = styled(MapView)`
@@ -25,12 +25,12 @@ const StyledInput = styled(Input)`
   margin-top: 16px;
 `;
 
-const MapScreen = ({ navigation }) => {
+function MapScreen({ navigation }) {
   const [location, setLocation] = useState();
 
   const eventData = {
-    title: "Event Name",
-    description: "Event Description",
+    title: 'Event Name',
+    description: 'Event Description',
   };
 
   const events = [
@@ -66,7 +66,7 @@ const MapScreen = ({ navigation }) => {
         <StyledInput
           placeholder="Find events near you"
           fullWidth
-          icon='search'
+          icon="search"
           value={location}
           onChange={(value) => setLocation(value)}
         />
@@ -80,7 +80,7 @@ const MapScreen = ({ navigation }) => {
         >
           {events.map((event) => (
             <Marker
-              //TODO - Redirect to the right event
+              // TODO - Redirect to the right event
               onCalloutPress={() => navigation.navigate('Event')}
               key={event.coordinate.latitude}
               coordinate={event.coordinate}
@@ -93,6 +93,6 @@ const MapScreen = ({ navigation }) => {
       <Navigator />
     </StyledScreen>
   );
-};
+}
 
 export default MapScreen;

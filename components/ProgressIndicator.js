@@ -1,11 +1,11 @@
-import { Circle } from "react-native-progress";
-import { useTheme } from "styled-components/native";
+import { Circle } from 'react-native-progress';
+import { useTheme } from 'styled-components/native';
 
-const ProgressIndicator = ({ percentage }) => {
+function ProgressIndicator({ percentage }) {
   const {
     colors: { gray, primary },
-    fonts: { primaryBold, extraSmall }
-   } = useTheme()
+    fonts: { primaryBold, extraSmall },
+  } = useTheme();
 
   return (
     <Circle
@@ -22,6 +22,6 @@ const ProgressIndicator = ({ percentage }) => {
       unfilledColor={gray}
     />
   );
-};
+}
 
 export default ProgressIndicator;
