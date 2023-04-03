@@ -55,7 +55,8 @@ const MyProfileScreen = () => {
         <Gap size={20} direction="vertical" />
         <Typography>Name Here</Typography>
         <ListContainer>
-          {renderListItem('My Events', 'list', 'MyEvents')}
+          {/* TODO - Should direct to my events  */}
+          {renderListItem('My Events', 'list', 'AccessDenied')}
           {renderListItem('About the App', 'information-circle-outline', 'About')}
           {renderListItem('Terms & Conditions', 'md-newspaper-outline', 'TermsAndConditions')}
           {renderListItem('Logout', 'exit-outline', 'Home', true)}

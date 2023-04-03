@@ -4,13 +4,17 @@ import LinkButton from "./LinkButton";
 import Typography from "./Typography";
 import { Ionicons } from "@expo/vector-icons";
 import ProgressIndicator from "./ProgressIndicator";
-import { Shadow } from "react-native-shadow-2";
 import { useNavigation } from "@react-navigation/native";
 
 const EventCardContainer = styled.View(({ theme: { colors } }) => ({
   borderRadius: 20,
   background: colors.white,
-  position: "relative"
+  position: "relative",
+  shadowOpacity: 0.2,
+  elevation: 1,
+  shadowRadius: 6,
+  shadowOffset: { width: 1, height: 2 },
+  shadowColor: colors.opaqueDark,
 }));
 
 const ImageContainer = styled.Image(() => ({
@@ -58,54 +62,56 @@ const EventCard = ({
   const navigation = useNavigation();
 
   return (
-    <Shadow distance={6} stretch style={{ borderRadius: 20 }}>
-      <EventCardContainer>
-        <ImageContainer source={image} />
-        <ContentContainer>
-          <Typography font="primaryBold" fontSpacing="spaced">
-            {eventName}
-          </Typography>
-          <Divider />
-          <DateContainer>
-            <Ionicons name="calendar-outline" size={16} />
-            <Gap size={4} />
-            <Typography
-              fontSize="extraSmall"
-              color="opaqueDark"
-              fontSpacing="spaced"
-            >
-              February, 14th 2023
-            </Typography>
-          </DateContainer>
-          <Gap size={8} direction="vertical" />
-          <LinkButton
-            icon="arrow-forward"
-            alignSelf="start"
-            fontProps={{ fontSize: "small" }}
-            onPress={() => navigation.navigate("Event", { id })}
+    <EventCardContainer>
+      <ImageContainer source={image} />
+      <ContentContainer>
+        <Typography font="primaryBold" fontSpacing="spaced">
+          {eventName}
+        </Typography>
+        <Divider />
+        <DateContainer>
+          <Ionicons name="calendar-outline" size={16} />
+          <Gap size={4} />
+          <Typography
+            fontSize="extraSmall"
+            color="opaqueDark"
+            fontSpacing="spaced"
           >
-            See Event Details
-          </LinkButton>
-        </ContentContainer>
-        <Gap size={14} direction="vertical" />
+            February, 14th 2023
+          </Typography>
+        </DateContainer>
+        <Gap size={8} direction="vertical" />
+        <LinkButton
+          icon="arrow-forward"
+          alignSelf="start"
+          fontProps={{ fontSize: "small" }}
+          onPress={() => navigation.navigate("Event", { id })}
+        >
+          See Event Details
+        </LinkButton>
+      </ContentContainer>
+      <Gap size={14} direction="vertical" />
 
-        <InfoContainer>
-          {!editMode ? (
-            <>
-              <ProgressIndicator percentage={0.75} />
-              <Gap size={6} direction="vertical" />
-              <Typography color="oranged" fontSize="extraSmall">
-                25 spots left
-              </Typography>
-            </>
-          ) : (
-            <RemoveButton>
-              <Ionicons name="ios-trash-outline" size={40} color={colors.primary} />
-            </RemoveButton>
-          )}
-        </InfoContainer>
-      </EventCardContainer>
-    </Shadow>
+      <InfoContainer>
+        {!editMode ? (
+          <>
+            <ProgressIndicator percentage={0.75} />
+            <Gap size={6} direction="vertical" />
+            <Typography color="oranged" fontSize="extraSmall">
+              25 spots left
+            </Typography>
+          </>
+        ) : (
+          <RemoveButton>
+            <Ionicons
+              name="ios-trash-outline"
+              size={40}
+              color={colors.primary}
+            />
+          </RemoveButton>
+        )}
+      </InfoContainer>
+    </EventCardContainer>
   );
 };
 

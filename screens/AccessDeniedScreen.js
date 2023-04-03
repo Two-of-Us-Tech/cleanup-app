@@ -47,7 +47,7 @@ const AccessDeniedScreen = () => {
       <StyledBlur intensity={20} tint="light">
         <SafeAreaView>
           <CardContainer>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <Ionicons name="arrow-back" size={28} color="black" />
             </TouchableOpacity>
             <TextContainer>
