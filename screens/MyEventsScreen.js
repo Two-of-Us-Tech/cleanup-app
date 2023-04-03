@@ -13,7 +13,7 @@ const ScreenContainer = styled.SafeAreaView(() => ({
 }));
 
 const EventListContainer = styled.ScrollView(() => ({
-  marginBottom: 80,
+  marginBottom: 60,
 }));
 
 const ListHeader = styled.View`

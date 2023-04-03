@@ -47,7 +47,7 @@ const SecondaryCircle = styled.View(({ theme: { colors } }) => ({
   position: "absolute",
   bottom: 0,
   zIndex: -1,
-  height: "83%",
+  height: "82%",
   width: 700,
   background: colors.tertiary,
   borderTopLeftRadius: 1000,

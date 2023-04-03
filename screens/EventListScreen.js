@@ -9,17 +9,14 @@ import Navigator from "../components/Navigator";
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
-  marginHorizontal: 20
-}));
-
-const ContentContainer = styled.View(() => ({
-  width: "100%",
-  marginTop: 20
+  marginHorizontal: 20,
 }));
 
 const EventListContainer = styled.ScrollView(() => ({
+  marginTop: 20,
   marginTop: 10,
-  marginBottom: 100
+  marginBottom: 100,
+  overflow: 'visible'
 }));
 
 const EventListScreen = ({}) => {
@@ -28,25 +25,43 @@ const EventListScreen = ({}) => {
   return (
     <StyledScreen>
       <ScreenContainer>
-        <ContentContainer>
+        <EventListContainer showsVerticalScrollIndicator={false}>
           <Input
             placeholder="Find your event"
             icon="search"
             value={searchTerm}
             onChange={(value) => setSearchTerm(value)}
           />
-          <EventListContainer showsVerticalScrollIndicator={false} >
-            <EventCard id={1} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
-            <Gap size={28} direction="vertical" />
-            <EventCard id={2} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
-            <Gap size={28} direction="vertical" />
-            <EventCard id={3} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
-            <Gap size={28} direction="vertical" />
-            <EventCard id={4} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
-            <Gap size={28} direction="vertical" />
-            <EventCard id={5} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
-          </EventListContainer>
-        </ContentContainer>
+          <EventCard
+            id={1}
+            eventName="Cocoa's Beach Cleanup"
+            image={exampleImage}
+          />
+          <Gap size={28} direction="vertical" />
+          <EventCard
+            id={2}
+            eventName="Cocoa's Beach Cleanup"
+            image={exampleImage}
+          />
+          <Gap size={28} direction="vertical" />
+          <EventCard
+            id={3}
+            eventName="Cocoa's Beach Cleanup"
+            image={exampleImage}
+          />
+          <Gap size={28} direction="vertical" />
+          <EventCard
+            id={4}
+            eventName="Cocoa's Beach Cleanup"
+            image={exampleImage}
+          />
+          <Gap size={28} direction="vertical" />
+          <EventCard
+            id={5}
+            eventName="Cocoa's Beach Cleanup"
+            image={exampleImage}
+          />
+        </EventListContainer>
       </ScreenContainer>
       <Navigator />
     </StyledScreen>

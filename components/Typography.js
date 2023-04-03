@@ -20,7 +20,7 @@ const Typography = ({
   font = "primary",
   fontSize = "regular",
   fontSpacing = "regular",
-  textAlign = "default",
+  textAlign = "left",
   children,
   ...props
 }) => {
