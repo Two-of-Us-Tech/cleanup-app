@@ -3,6 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 import Toast from 'react-native-toast-message';
 import { Platform } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import StyledScreen from '../components/StyledScreen';
 import Typography from '../components/Typography';
 import exampleImage from '../assets/images/example.jpeg';
@@ -52,9 +53,10 @@ const StyledButton = styled(Button)(() => ({
 
 function EventScreen() {
   const { colors } = useTheme();
+  const { t } = useTranslation('eventDetail');
 
   return (
-    <StyledScreen showBackButton headerText="Event Details">
+    <StyledScreen showBackButton headerText={t('header')}>
       <Toast config={toastConfig} />
       <ScreenContainer>
         <ScrollableContent showsVerticalScrollIndicator={false}>
@@ -84,7 +86,7 @@ function EventScreen() {
             <Ionicons name="list-outline" size={21} color="black" />
             <Gap size={10} />
             <Typography fontSize="extraSmall" color="oranged" fontSpacing="spaced">
-              20 spots available
+              {`20 ${t('spots')}`}
             </Typography>
           </EventItem>
           <Gap size={16} direction="vertical" />
@@ -109,14 +111,14 @@ function EventScreen() {
             />
           </MapContainer>
           <Typography fontSpacing="spaced" font="primaryBold">
-            About the Event
+            {t('about')}
           </Typography>
           <Gap size={18} direction="vertical" />
           <EventItem>
             <Ionicons name="shirt-outline" size={21} color="black" />
             <Gap size={10} />
             <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              Comfortable clothes (gloves and boots if you have some!)
+              {t('comfortable')}
             </Typography>
           </EventItem>
           <Gap size={16} direction="vertical" />
@@ -124,7 +126,7 @@ function EventScreen() {
             <Ionicons name="fast-food-outline" size={21} color="black" />
             <Gap size={10} />
             <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              We offer lunch and snacks
+              {t('lunch')}
             </Typography>
           </EventItem>
           <Gap size={16} direction="vertical" />
@@ -132,7 +134,7 @@ function EventScreen() {
             <Ionicons name="star-outline" size={21} color="black" />
             <Gap size={10} />
             <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              No experience needed
+              {t('noExperience')}
             </Typography>
           </EventItem>
         </ScrollableContent>
@@ -144,14 +146,14 @@ function EventScreen() {
           Toast.show({
             type: 'success',
             props: {
-              label: 'This Event was added to your list!',
+              label: t('eventAdded'),
               iconColor: colors.primary,
               onHide: () => Toast.hide(),
             },
           });
         }}
       >
-        Join this Event
+        {t('join')}
       </StyledButton>
     </StyledScreen>
   );

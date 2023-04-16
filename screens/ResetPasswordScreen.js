@@ -2,19 +2,24 @@ import { useState } from 'react';
 import styled from 'styled-components/native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Input from '../components/Input';
 import StyledScreen from '../components/StyledScreen';
 import Typography from '../components/Typography';
+import i18n from '../config/translation';
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
-    .required('Password is required')
-    .min(6, 'Password must be at least 6 characters'),
+    .required(i18n.t('resetPassword:isRequired', { field: i18n.t('resetPassword:newPassword') }))
+    .min(
+      6,
+      i18n.t('resetPassword:mustBe', { field: i18n.t('resetPassword:newPassword'), character: '6' })
+    ),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Password Confirmation is Required'),
+    .oneOf([Yup.ref('password'), null], i18n.t('resetPassword:mustMatch'))
+    .required(i18n.t('resetPassword:isRequired', { field: i18n.t('resetPassword:confirmation') })),
 });
 
 const ScreenContainer = styled.View`
@@ -40,6 +45,7 @@ const StyledButton = styled(Button)`
 
 function ForgetPasswordScreen() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useTranslation('resetPassword');
 
   const onSubmit = () => {
     setIsSubmitting(true);
@@ -52,7 +58,7 @@ function ForgetPasswordScreen() {
   return (
     <StyledScreen variant="secondary" showBackButton>
       <ScreenContainer>
-        <Typography>Forgot Password?</Typography>
+        <Typography>{t('title')}</Typography>
         <TextDivider />
         <FormContainer>
           <Formik
@@ -67,8 +73,8 @@ function ForgetPasswordScreen() {
             {({ handleSubmit, handleBlur, handleChange, values, errors, touched }) => (
               <>
                 <Input
-                  placeholder="New Password"
-                  icon="at"
+                  placeholder={t('newPassword')}
+                  icon="lock-closed-outline"
                   error={touched.password ? errors.password : ''}
                   value={values.password}
                   isPassword
@@ -79,8 +85,8 @@ function ForgetPasswordScreen() {
                 />
                 <Gap size={10} direction="vertical" />
                 <Input
-                  placeholder="Type your email"
-                  icon="at"
+                  placeholder={t('confirmation')}
+                  icon="lock-closed-outline"
                   error={touched.confirmPassword ? errors.confirmPassword : ''}
                   value={values.confirmPassword}
                   isPassword
@@ -91,7 +97,7 @@ function ForgetPasswordScreen() {
                 />
                 <Gap size={10} direction="vertical" />
                 <StyledButton loading={isSubmitting} onPress={handleSubmit}>
-                  Submit
+                  {t('submit')}
                 </StyledButton>
               </>
             )}

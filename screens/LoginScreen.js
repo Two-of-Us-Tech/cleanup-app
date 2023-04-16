@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components/native';
+import { useTranslation } from 'react-i18next';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Input from '../components/Input';
@@ -26,6 +27,7 @@ const JustifiedButton = styled.View(() => ({
 }));
 
 function LoginScreen({ navigation }) {
+  const { t } = useTranslation('login');
   const [formValue, setFormValue] = useState({
     email: '',
     password: '',
@@ -38,17 +40,17 @@ function LoginScreen({ navigation }) {
       <HomeScreenContainer>
         <FormContainer>
           <Typography font="secondary" fontSize="xl">
-            Welcome Back!
+            {t('title')}
           </Typography>
           <Gap size={22} direction="vertical" />
           <Input
-            placeholder="Email"
+            placeholder={t('email')}
             value={formValue.email}
             onChange={(value) => onChange('email', value)}
           />
           <Gap size={15} direction="vertical" />
           <Input
-            placeholder="Password"
+            placeholder={t('password')}
             isPassword
             value={formValue.password}
             onChange={(value) => onChange('password', value)}
@@ -60,22 +62,22 @@ function LoginScreen({ navigation }) {
               size="extraSmall"
               onPress={() => navigation.navigate('ForgetPassword')}
             >
-              Forget Password?
+              {t('forgetPassword')}
             </LinkButton>
           </JustifiedButton>
         </FormContainer>
         <Gap size={30} direction="vertical" />
-        <Button>Login</Button>
+        <Button>{t('login')}</Button>
         <Divider dividerText="OR" />
         <Button variant="white" withShadow iconLeft={googleLogo}>
-          Sign in with Google
+          {t('signInWithGoogle')}
         </Button>
         <Gap size={30} direction="vertical" />
         <Typography color="opaqueDark" fontSize="small">
-          New Here?
+          {t('newHere')}
         </Typography>
         <LinkButton variant="light" onPress={() => navigation.navigate('Signup')}>
-          Sign Up
+          {t('signUp')}
         </LinkButton>
       </HomeScreenContainer>
     </StyledScreen>

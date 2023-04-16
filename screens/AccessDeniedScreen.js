@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { SafeAreaView, TouchableOpacity, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import Gap from '../components/Gap';
 import LinkButton from '../components/LinkButton';
 import Button from '../components/Button';
@@ -41,6 +42,7 @@ const CenteredLink = styled(LinkButton)`
 
 function AccessDeniedScreen() {
   const navigation = useNavigation();
+  const { t } = useTranslation('access');
 
   return (
     <StyledScreen>
@@ -52,18 +54,18 @@ function AccessDeniedScreen() {
             </TouchableOpacity>
             <TextContainer>
               <Typography font="secondary" fontSize="xl">
-                Ops!
+                {t('title')}
               </Typography>
               <Gap size={10} direction="vertical" />
               <CenteredText color="opaquePrimary" fontSize="small" fontSpacing="spaced">
-                Log in or create an account to have access to all features.
+                {t('login')}
               </CenteredText>
             </TextContainer>
             <Gap size={30} direction="vertical" />
-            <Button onPress={() => navigation.navigate('Signup')}>Sign Up</Button>
+            <Button onPress={() => navigation.navigate('Signup')}>{t('sign')}</Button>
             <Gap size={10} direction="vertical" />
             <CenteredLink hideBorder size="small" onPress={() => navigation.navigate('Login')}>
-              Already have an account? Login
+              {t('haveAccount')}
             </CenteredLink>
           </CardContainer>
         </SafeAreaView>

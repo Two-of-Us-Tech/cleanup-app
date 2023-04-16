@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { useTranslation } from 'react-i18next';
 import HomeImageHome from '../assets/images/login-image.png';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
@@ -40,23 +41,25 @@ const TextContainer = styled.View(() => ({
 }));
 
 function HomeScreen({ navigation }) {
+  const { t } = useTranslation('home');
+
   return (
     <HomeScreenContainer>
       <ContentContainer>
         <TextContainer>
           <Typography font="secondary" fontSize="xl">
-            Clean Up
+            {t('title')}
           </Typography>
           <Gap size={15} direction="vertical" />
           <Typography color="opaquePrimary" textAlign="center">
-            Volunteers events to make your community a better place
+            {t('subTitle')}
           </Typography>
         </TextContainer>
         <ButtonsContainer>
-          <Button onPress={() => navigation.navigate('Login')}>Login</Button>
+          <Button onPress={() => navigation.navigate('Login')}>{t('login')}</Button>
           <Gap size={12} direction="vertical" />
           <LinkButton alignSelf="center" onPress={() => navigation.navigate('EventList')}>
-            Find an Event
+            {t('find')}
           </LinkButton>
         </ButtonsContainer>
       </ContentContainer>

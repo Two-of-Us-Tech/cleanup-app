@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled, { useTheme } from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import Navigator from '../components/Navigator';
 import StyledScreen from '../components/StyledScreen';
 import Typography from '../components/Typography';
@@ -34,6 +35,7 @@ function MyProfileScreen() {
   const [image, setImage] = useState(null);
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const { t } = useTranslation('myProfile');
 
   const renderListItem = (text, icon, route, isLast = false) => (
     <>
@@ -49,17 +51,17 @@ function MyProfileScreen() {
   );
 
   return (
-    <StyledScreen variant="secondary" headerText="My Profile">
+    <StyledScreen variant="secondary" headerText={t('header')}>
       <ScreenContainer>
         <ImageSelector image={image} onChange={(updatedImage) => setImage(updatedImage)} />
         <Gap size={20} direction="vertical" />
         <Typography>Name Here</Typography>
         <ListContainer>
           {/* TODO - Should direct to my events  */}
-          {renderListItem('My Events', 'list', 'AccessDenied')}
-          {renderListItem('About the App', 'information-circle-outline', 'About')}
-          {renderListItem('Terms & Conditions', 'md-newspaper-outline', 'TermsAndConditions')}
-          {renderListItem('Logout', 'exit-outline', 'Home', true)}
+          {renderListItem(t('myEvents'), 'list', 'AccessDenied')}
+          {renderListItem(t('aboutTheApp'), 'information-circle-outline', 'About')}
+          {renderListItem(t('terms'), 'md-newspaper-outline', 'TermsAndConditions')}
+          {renderListItem(t('logout'), 'exit-outline', 'Home', true)}
         </ListContainer>
       </ScreenContainer>
       <Navigator />

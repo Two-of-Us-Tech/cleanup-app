@@ -21,6 +21,7 @@ import ForgetPasswordScreen from './screens/ForgetPasswordScreen';
 import TermsAndConditionsScreen from './screens/TermsAndConditionsScreen';
 import AboutScreen from './screens/AboutScreen';
 import AccessDeniedScreen from './screens/AccessDeniedScreen';
+import './config/translation';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,9 +56,9 @@ export default function App() {
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="MyProfile" component={MyProfileScreen} />
           <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
-          <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
           <Stack.Screen name="About" component={AboutScreen} />
           <Stack.Screen name="TermsAndConditions" component={TermsAndConditionsScreen} />
+          <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
           <Stack.Screen name="AccessDenied" component={AccessDeniedScreen} />
         </Stack.Navigator>
       </NavigationContainer>

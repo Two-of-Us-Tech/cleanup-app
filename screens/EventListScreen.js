@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { useState } from 'react';
 import { Platform } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import StyledScreen from '../components/StyledScreen';
 import Input from '../components/Input';
 import exampleImage from '../assets/images/example.jpeg';
@@ -24,13 +25,14 @@ const EventListContainer = styled.ScrollView(() => ({
 
 function EventListScreen() {
   const [searchTerm, setSearchTerm] = useState('');
+  const { t } = useTranslation('eventList');
 
   return (
     <StyledScreen>
       <ScreenContainer>
         <EventListContainer showsVerticalScrollIndicator={false}>
           <Input
-            placeholder="Find your event"
+            placeholder={t('findEvent')}
             icon="search"
             value={searchTerm}
             onChange={(value) => setSearchTerm(value)}

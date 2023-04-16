@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Platform } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import Navigator from '../components/Navigator';
 import StyledScreen from '../components/StyledScreen';
 import Gap from '../components/Gap';
@@ -35,6 +36,8 @@ const NoEventsLabel = styled(Typography)`
   margin-bottom: 80px;
 `;
 function MyEventsScreen() {
+  const { t } = useTranslation('myEvents');
+
   const renderListHeader = (title) => (
     <ListHeader>
       <Typography font="primaryBold" fontSpacing="spaced">
@@ -48,11 +51,11 @@ function MyEventsScreen() {
     <StyledScreen headerText="My Events">
       <ScreenContainer>
         <EventListContainer showsVerticalScrollIndicator={false}>
-          {renderListHeader('This Month')}
+          {renderListHeader(t('thisMonth'))}
           <NoEventsLabel color="darkTransparent" fontSpacing="spaced" fontSize="small">
-            You have no events assigned yet!
+            {t('noAssigned')}
           </NoEventsLabel>
-          {renderListHeader('This Month')}
+          {renderListHeader(t('nextMonth'))}
           <ItemInfo
             day={14}
             month="Feb"
@@ -66,7 +69,7 @@ function MyEventsScreen() {
             location="Far away location"
             title="Your event name goes here"
           />
-          {renderListHeader('Past Events')}
+          {renderListHeader(t('Past Events'))}
           <ItemInfo
             isEventDue
             day={14}

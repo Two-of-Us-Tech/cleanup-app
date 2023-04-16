@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import MapView, { Marker } from 'react-native-maps';
 import { useState } from 'react';
 import { Platform } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import Navigator from '../components/Navigator';
 import StyledScreen from '../components/StyledScreen';
 import Input from '../components/Input';
@@ -27,6 +28,7 @@ const StyledInput = styled(Input)`
 
 function MapScreen({ navigation }) {
   const [location, setLocation] = useState();
+  const { t } = useTranslation('map');
 
   const eventData = {
     title: 'Event Name',
@@ -64,7 +66,7 @@ function MapScreen({ navigation }) {
     <StyledScreen>
       <ScreenContainer>
         <StyledInput
-          placeholder="Find events near you"
+          placeholder={t('findEvents')}
           fullWidth
           icon="search"
           value={location}

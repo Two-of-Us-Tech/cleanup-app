@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
+import { useTranslation } from 'react-i18next';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Input from '../components/Input';
@@ -30,10 +31,11 @@ const StyledButton = styled(Button)`
 function ForgetPasswordScreen() {
   const [email, setEmail] = useState();
   const [error, setError] = useState(false);
+  const { t } = useTranslation('forgetPassword');
 
   const onSubmit = () => {
     if (!email) {
-      setError('Email is required');
+      setError(t('alertMessage'));
     } else {
       // TODO - do something
     }
@@ -48,18 +50,18 @@ function ForgetPasswordScreen() {
   return (
     <StyledScreen variant="secondary" showBackButton>
       <ScreenContainer>
-        <Typography>Forgot Password?</Typography>
+        <Typography>{t('title')}</Typography>
         <TextDivider />
         <FormContainer>
           <Input
-            placeholder="Type your email"
-            icon="at"
+            placeholder={t('placeholder')}
+            icon="lock-closed-outline"
             onChange={(value) => setEmail(value)}
             error={error}
             value={email}
           />
           <Gap size={10} direction="vertical" />
-          <StyledButton onPress={() => onSubmit()}>Submit</StyledButton>
+          <StyledButton onPress={() => onSubmit()}>{t('submit')}</StyledButton>
         </FormContainer>
       </ScreenContainer>
     </StyledScreen>
