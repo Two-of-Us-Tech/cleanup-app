@@ -1,0 +1,11 @@
+{
+  "isRequired": "{{field}} is required",
+  "mustBe": "{{field}} must be at least {{character}} characters",
+  "invalidEmail": "Invalid email",
+  "passwordMustMatch": "Passwords must match",
+  "name": "Name",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Password Confirmation",
+  "phoneNumber": "Phone Number"
+}

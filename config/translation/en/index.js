@@ -10,6 +10,7 @@ import map from './mapEN.json';
 import myEvents from './myEventsEN.json';
 import myProfile from './myProfileEN.json';
 import resetPassword from './resetPasswordEN.json';
+import signUp from './signUpEN.json';
 
 export default {
   home,
@@ -24,4 +25,5 @@ export default {
   myEvents,
   myProfile,
   resetPassword,
+  signUp,
 };

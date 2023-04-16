@@ -3,12 +3,14 @@ import { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useTranslation } from 'react-i18next';
 import StyledScreen from '../components/StyledScreen';
 import Typography from '../components/Typography';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import LinkButton from '../components/LinkButton';
 import ImageSelector from '../components/ImageSelector';
+import i18n from '../config/translation';
 
 const StyledContainer = styled.View(() => ({
   alignItems: 'center',
@@ -33,20 +35,25 @@ const StyledButton = styled(Button)`
 `;
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
+  name: Yup.string().required(i18n.t('signUp:isRequired', { field: i18n.t('signUp:name') })),
+  email: Yup.string()
+    .email(i18n.t('signUp:invalidEmail'))
+    .required(i18n.t('signUp:isRequired', { field: i18n.t('signUp:email') })),
   password: Yup.string()
-    .required('Password is required')
-    .min(6, 'Password must be at least 6 characters'),
+    .required(i18n.t('signUp:isRequired', { field: i18n.t('signUp:password') }))
+    .min(6, i18n.t('signUp:mustBe', { field: i18n.t('signUp:password'), character: '6' })),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Password Confirmation is Required'),
-  phoneNumber: Yup.string('').required('Phone number is required'),
+    .oneOf([Yup.ref('password'), null], i18n.t('signUp:passwordMustMatch'))
+    .required(i18n.t('signUp:isRequired', { field: i18n.t('signUp:confirmPassword') })),
+  phoneNumber: Yup.string('').required(
+    i18n.t('signUp:isRequired', { field: i18n.t('signUp:phoneNumber') })
+  ),
 });
 
 function SignupScreen({ navigation }) {
   const [image, setImage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useTranslation('signUp');
 
   const renderInput = (placeholder, key, icon, formikProps, isPassword) => {
     const { handleBlur, handleChange, values, errors, touched } = formikProps;
@@ -100,17 +107,23 @@ function SignupScreen({ navigation }) {
             >
               {({ handleSubmit, ...formikProps }) => (
                 <>
-                  {renderInput('Name', 'name', 'person-circle-outline', formikProps)}
-                  {renderInput('Email', 'email', 'at', formikProps)}
-                  {renderInput('Password', 'password', 'lock-closed-outline', formikProps, true)}
+                  {renderInput(t('signUp:name'), 'name', 'person-circle-outline', formikProps)}
+                  {renderInput(t('signUp:email'), 'email', 'at', formikProps)}
                   {renderInput(
-                    'Confirm Password',
+                    t('signUp:password'),
+                    'password',
+                    'lock-closed-outline',
+                    formikProps,
+                    true
+                  )}
+                  {renderInput(
+                    t('signUp:confirmPassword'),
                     'confirmPassword',
                     'lock-closed-outline',
                     formikProps,
                     true
                   )}
-                  {renderInput('Phone Number', 'phoneNumber', 'call', formikProps)}
+                  {renderInput(t('signUp:phoneNumber'), 'phoneNumber', 'call', formikProps)}
                   <StyledButton onPress={handleSubmit} withShadow loading={isSubmitting}>
                     Sign Up
                   </StyledButton>
