@@ -144,11 +144,12 @@ function EventScreen() {
         withShadow
         onPress={() => {
           Toast.show({
-            type: 'success',
+            type: 'default',
             props: {
               label: t('eventAdded'),
-              iconColor: colors.primary,
+              color: colors.primary,
               onHide: () => Toast.hide(),
+              icon: 'ios-checkbox',
             },
           });
         }}

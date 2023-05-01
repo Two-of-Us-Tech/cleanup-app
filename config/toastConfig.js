@@ -27,11 +27,13 @@ const StyledTypography = styled(Typography)`
 `;
 
 const toastConfig = {
-  success: ({ props: { label, iconColor, onHide } }) => (
+  default: ({ props: { label, iconColor, textColor = 'primary', icon, onHide } }) => (
     <SuccessToastContainer>
-      <Ionicons name="ios-checkbox" size={32} color={iconColor} />
+      <Ionicons name={icon} size={32} color={iconColor} />
       <Gap size={10} />
-      <StyledTypography fontSize="small">{label}</StyledTypography>
+      <StyledTypography color={textColor} fontSize="small">
+        {label}
+      </StyledTypography>
       <DismissButton onPress={() => onHide()}>
         <Ionicons name="md-close" size={26} color={iconColor} />
       </DismissButton>

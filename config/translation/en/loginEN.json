@@ -7,5 +7,8 @@
   "signInWithGoogle": "Sign in with Google",
   "or": "Or",
   "newHere": "New Here?",
-  "signUp": "Sign Up"
+  "signUp": "Sign Up",
+  "error": "Error while trying to login",
+  "isRequired": "{{field}} is required",
+  "invalidEmail": "Invalid email"
 }
