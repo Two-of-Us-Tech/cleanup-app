@@ -1,9 +1,11 @@
+import Constants from 'expo-constants';
+
+const { API_URL } = Constants.expoConfig.extra;
+
 const header = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
 };
-
-const API_URL = 'https://cleanup-api.herokuapp.com';
 
 const get = (path, authToken) =>
   fetch(`${API_URL}${path}`, {

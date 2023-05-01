@@ -13,6 +13,7 @@
   "dependencies": {
     "@react-navigation/native": "^6.1.4",
     "@react-navigation/native-stack": "^6.9.10",
+    "dotenv": "^16.0.3",
     "expo": "~47.0.12",
     "expo-blur": "~12.0.1",
     "expo-font": "~11.0.1",
@@ -34,7 +35,8 @@
     "react-native-toast-message": "^2.1.6",
     "styled-components": "^5.3.6",
     "yup": "^1.0.2",
-    "zustand": "^4.3.7"
+    "zustand": "^4.3.7",
+    "expo-constants": "~14.0.2"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
