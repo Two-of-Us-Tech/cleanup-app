@@ -7,7 +7,7 @@ import StyledScreen from '../components/StyledScreen';
 import Typography from '../components/Typography';
 import ImageSelector from '../components/ImageSelector';
 import Gap from '../components/Gap';
-import authStore from '../stores/auth.store';
+import userStore from '../stores/user.store';
 
 const ScreenContainer = styled.SafeAreaView`
   flex: 1;
@@ -32,10 +32,10 @@ const ItemDivider = styled.View`
 `;
 
 function MyProfileScreen() {
-  const logout = authStore((state) => state.logout);
+  const logout = userStore((state) => state.logout);
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const { profilePictureUrl, name } = authStore((state) => state.user);
+  const { profilePictureUrl, name } = userStore((state) => state.user);
   const { t } = useTranslation('myProfile');
 
   const renderListItem = (text, icon, route, action, isLast = false) => (

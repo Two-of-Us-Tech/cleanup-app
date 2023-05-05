@@ -12,7 +12,7 @@ import StyledScreen from '../components/StyledScreen';
 import Typography from '../components/Typography';
 import Divider from '../components/Divider';
 import LinkButton from '../components/LinkButton';
-import authStore from '../stores/auth.store';
+import userStore from '../stores/user.store';
 import toastConfig from '../config/toastConfig';
 import i18n from '../config/translation';
 
@@ -42,7 +42,7 @@ const validationSchema = Yup.object().shape({
 function LoginScreen({ navigation }) {
   const { t } = useTranslation('login');
   const { colors } = useTheme();
-  const { login, user, isLoading, error } = authStore((state) => state);
+  const { login, user, isLoading, error } = userStore((state) => state);
 
   useEffect(() => {
     if (user) {

@@ -2,14 +2,16 @@ import styled, { useTheme } from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 import Toast from 'react-native-toast-message';
-import { Platform } from 'react-native';
+import { Linking, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import StyledScreen from '../components/StyledScreen';
 import Typography from '../components/Typography';
-import exampleImage from '../assets/images/example.jpeg';
 import Gap from '../components/Gap';
 import Button from '../components/Button';
 import toastConfig from '../config/toastConfig';
+import eventStore from '../stores/event.store';
+import userStore from '../stores/user.store';
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   marginHorizontal: 22,
@@ -51,26 +53,84 @@ const StyledButton = styled(Button)(() => ({
   width: '90%',
 }));
 
-function EventScreen() {
+function EventScreen({ route, navigation }) {
   const { colors } = useTheme();
   const { t } = useTranslation('eventDetail');
+  const events = eventStore((state) => state.events);
+  const { user, joinEvent, isLoading, notifyDataRefresh, removeEvent, error } = userStore(
+    (state) => state
+  );
+  const event = events.find(({ _id }) => _id === route.params.id);
+  const [lat, long] = event.location.coordinates;
+
+  const userHasJoinedEvent = user ? user.events?.some(({ _id }) => _id === event._id) : false;
+
+  const onOpenAddress = () => {
+    const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+    const latLng = `${lat},${long}`;
+    const label = event.title;
+    const url = Platform.select({
+      ios: `${scheme}${label}@${latLng}`,
+      android: `${scheme}${latLng}(${label})`,
+    });
+    Linking.openURL(url);
+  };
+
+  useEffect(() => {
+    if (notifyDataRefresh) {
+      Toast.show({
+        type: 'default',
+        props: {
+          label: t('eventUpdated'),
+          iconColor: colors.primary,
+          onHide: () => Toast.hide(),
+          icon: 'ios-checkbox',
+        },
+      });
+    }
+
+    if (error) {
+      Toast.show({
+        type: 'default',
+        props: {
+          label: t('error'),
+          textColor: 'oranged',
+          iconColor: colors.oranged,
+          onHide: () => Toast.hide(),
+          icon: 'ios-close-circle',
+        },
+      });
+    }
+  }, [notifyDataRefresh, error, colors, t]);
+
+  const onJoinEvent = () => {
+    if (!user) {
+      navigation.navigate('AccessDenied');
+    } else {
+      joinEvent(event._id);
+    }
+  };
 
   return (
-    <StyledScreen showBackButton headerText={t('header')}>
+    <StyledScreen showBackButton={!isLoading} headerText={t('header')}>
       <Toast config={toastConfig} />
       <ScreenContainer>
         <ScrollableContent showsVerticalScrollIndicator={false}>
           <Typography fontSize="regular" font="primaryBold" fontSpacing="spaced">
-            Coco Beach Cleanup
+            {event.title}
           </Typography>
-          <ImageContainer source={exampleImage} />
+          <ImageContainer source={{ uri: event.pictureUrl }} />
 
           <Gap size={20} direction="vertical" />
           <EventItem>
             <Ionicons name="calendar-outline" size={21} color="black" />
             <Gap size={10} />
             <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              February, 14th 2023
+              {new Date(event.date).toLocaleDateString('default', {
+                month: 'long',
+                day: '2-digit',
+                year: 'numeric',
+              })}
             </Typography>
           </EventItem>
           <Gap size={16} direction="vertical" />
@@ -78,7 +138,7 @@ function EventScreen() {
             <Ionicons name="time-outline" size={21} color="black" />
             <Gap size={10} />
             <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              12pm to 5pm
+              {event.durationTime}
             </Typography>
           </EventItem>
           <Gap size={16} direction="vertical" />
@@ -86,29 +146,26 @@ function EventScreen() {
             <Ionicons name="list-outline" size={21} color="black" />
             <Gap size={10} />
             <Typography fontSize="extraSmall" color="oranged" fontSpacing="spaced">
-              {`20 ${t('spots')}`}
+              {`${event.spotsAvailable} ${t('spots')}`}
             </Typography>
           </EventItem>
           <Gap size={16} direction="vertical" />
           <EventItem>
             <Ionicons name="location-sharp" size={21} color="black" />
             <Gap size={10} />
-            <Typography fontSize="extraSmall" fontSpacing="spaced">
-              Cocoa’s Beach, 1 Ocean Pkwy Wantahg, Ny 11793ss
+            <Typography fontSize="extraSmall" fontSpacing="spaced" onPress={() => onOpenAddress()}>
+              {event.address}
             </Typography>
           </EventItem>
           <MapContainer
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
+              latitude: lat,
+              longitude: long,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
           >
-            <Marker
-              coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-              title="Coco Beach Cleanup"
-            />
+            <Marker coordinate={{ latitude: lat, longitude: long }} title={event.title} />
           </MapContainer>
           <Typography fontSpacing="spaced" font="primaryBold">
             {t('about')}
@@ -118,7 +175,7 @@ function EventScreen() {
             <Ionicons name="shirt-outline" size={21} color="black" />
             <Gap size={10} />
             <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              {t('comfortable')}
+              {event.clothingType}
             </Typography>
           </EventItem>
           <Gap size={16} direction="vertical" />
@@ -126,7 +183,7 @@ function EventScreen() {
             <Ionicons name="fast-food-outline" size={21} color="black" />
             <Gap size={10} />
             <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              {t('lunch')}
+              {event.foodOptions}
             </Typography>
           </EventItem>
           <Gap size={16} direction="vertical" />
@@ -134,28 +191,25 @@ function EventScreen() {
             <Ionicons name="star-outline" size={21} color="black" />
             <Gap size={10} />
             <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              {t('noExperience')}
+              {event.experienceRequired}
             </Typography>
           </EventItem>
         </ScrollableContent>
       </ScreenContainer>
-      <StyledButton
-        variant="rounded"
-        withShadow
-        onPress={() => {
-          Toast.show({
-            type: 'default',
-            props: {
-              label: t('eventAdded'),
-              color: colors.primary,
-              onHide: () => Toast.hide(),
-              icon: 'ios-checkbox',
-            },
-          });
-        }}
-      >
-        {t('join')}
-      </StyledButton>
+      {!userHasJoinedEvent ? (
+        <StyledButton withShadow onPress={() => onJoinEvent()} loading={isLoading}>
+          {t('join')}
+        </StyledButton>
+      ) : (
+        <StyledButton
+          variant="white"
+          withShadow
+          onPress={() => removeEvent(event._id)}
+          loading={isLoading}
+        >
+          {t('remove')}
+        </StyledButton>
+      )}
     </StyledScreen>
   );
 }

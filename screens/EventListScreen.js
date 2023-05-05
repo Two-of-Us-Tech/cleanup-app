@@ -37,7 +37,7 @@ function EventListScreen() {
   }, [fetchEvents, events]);
 
   useEffect(() => {
-    fetchEvents(debouncedText || '');
+    fetchEvents(debouncedText);
   }, [debouncedText, fetchEvents]);
 
   return (
@@ -59,7 +59,8 @@ function EventListScreen() {
               <Fragment key={event.id}>
                 <EventCard
                   numberOfParticipants={event.numberOfParticipants}
-                  id={event.id}
+                  // eslint-disable-next-line no-underscore-dangle
+                  id={event._id}
                   date={event.date}
                   eventName={event.title}
                   spotsAvailable={event.spotsAvailable}
