@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Platform } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import Gap from './Gap';
 import LinkButton from './LinkButton';
 import Typography from './Typography';
@@ -49,12 +50,18 @@ const InfoContainer = styled.View(() => ({
   alignItems: 'center',
 }));
 
-function EventCard({ eventName, id, image }) {
+function EventCard({ eventName, id, image, date, spotsAvailable, numberOfParticipants }) {
   const navigation = useNavigation();
+  const { t } = useTranslation('eventCard');
+
+  const getPercentage = () => {
+    const partialValue = numberOfParticipants - spotsAvailable;
+    return (100 * partialValue) / numberOfParticipants / 100;
+  };
 
   return (
     <EventCardContainer>
-      <ImageContainer source={image} />
+      <ImageContainer source={{ uri: image }} />
       <ContentContainer>
         <Typography font="primaryBold" fontSpacing="spaced">
           {eventName}
@@ -64,7 +71,11 @@ function EventCard({ eventName, id, image }) {
           <Ionicons name="calendar-outline" size={16} />
           <Gap size={4} />
           <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-            February, 14th 2023
+            {new Date(date).toLocaleDateString('default', {
+              month: 'long',
+              day: '2-digit',
+              year: 'numeric',
+            })}
           </Typography>
         </DateContainer>
         <Gap size={8} direction="vertical" />
@@ -73,16 +84,16 @@ function EventCard({ eventName, id, image }) {
           fontProps={{ fontSize: 'small' }}
           onPress={() => navigation.navigate('Event', { id })}
         >
-          See Event Details
+          {t('eventDetails')}
         </LinkButton>
       </ContentContainer>
       <Gap size={14} direction="vertical" />
 
       <InfoContainer>
-        <ProgressIndicator percentage={0.75} />
+        <ProgressIndicator percentage={getPercentage()} />
         <Gap size={6} direction="vertical" />
         <Typography color="oranged" fontSize="extraSmall">
-          25 spots left
+          {`${spotsAvailable} ${t('spotsLeft')}`}
         </Typography>
       </InfoContainer>
     </EventCardContainer>

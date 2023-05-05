@@ -7,7 +7,7 @@ const emptyState = {
   isLoading: false,
   error: '',
 };
-const userStore = create((set) => ({
+const authStore = create((set) => ({
   ...emptyState,
   login: async (email, password) => {
     set({ ...emptyState, isLoading: true });
@@ -23,6 +23,9 @@ const userStore = create((set) => ({
       set({ ...emptyState, error: 'Error while trying to fetch user info' });
     }
   },
+  logout: async () => {
+    set({ ...emptyState });
+  },
 }));
 
-export default userStore;
+export default authStore;

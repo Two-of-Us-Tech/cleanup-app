@@ -7,5 +7,7 @@
   "email": "Email",
   "password": "Password",
   "confirmPassword": "Password Confirmation",
-  "phoneNumber": "Phone Number"
+  "phoneNumber": "Phone Number",
+  "error": "There was an error trying to register the user",
+  "success": "User successfully created, you're being redirected!"
 }

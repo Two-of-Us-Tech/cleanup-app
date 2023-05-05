@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Platform } from 'react-native';
 import routes from '../config/routes';
-import userStore from '../stores/user.store';
+import authStore from '../stores/auth.store';
 
 const NavigatorContainer = styled.View(() => ({
   position: 'absolute',
@@ -44,7 +44,7 @@ function Navigator() {
   const navigation = useNavigation();
   const route = useRoute();
   const [selectedRoute, setSelectedRoute] = useState(route.name);
-  const user = userStore((state) => state.user);
+  const user = authStore((state) => state.user);
 
   useEffect(() => {
     setSelectedRoute(route.name);

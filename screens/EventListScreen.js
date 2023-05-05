@@ -1,13 +1,14 @@
 import styled from 'styled-components/native';
-import { useState } from 'react';
-import { Platform } from 'react-native';
+import { useState, useEffect, Fragment } from 'react';
+import { ActivityIndicator, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useDebounce } from 'use-debounce';
 import StyledScreen from '../components/StyledScreen';
 import Input from '../components/Input';
-import exampleImage from '../assets/images/example.jpeg';
 import EventCard from '../components/EventCard';
 import Gap from '../components/Gap';
 import Navigator from '../components/Navigator';
+import eventStore from '../stores/event.store';
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
@@ -26,6 +27,18 @@ const EventListContainer = styled.ScrollView(() => ({
 function EventListScreen() {
   const [searchTerm, setSearchTerm] = useState('');
   const { t } = useTranslation('eventList');
+  const [debouncedText] = useDebounce(searchTerm, 1000);
+  const { fetchEvents, events, isLoading } = eventStore((state) => state);
+
+  useEffect(() => {
+    if (!events) {
+      fetchEvents('');
+    }
+  }, [fetchEvents, events]);
+
+  useEffect(() => {
+    fetchEvents(debouncedText || '');
+  }, [debouncedText, fetchEvents]);
 
   return (
     <StyledScreen>
@@ -34,19 +47,28 @@ function EventListScreen() {
           <Input
             placeholder={t('findEvent')}
             icon="search"
-            value={searchTerm}
-            onChange={(value) => setSearchTerm(value)}
+            inputProps={{
+              value: searchTerm,
+              onChangeText: (value) => setSearchTerm(value),
+            }}
           />
-          <EventCard id={1} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
-          <Gap size={28} direction="vertical" />
-          <EventCard id={2} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
-          <Gap size={28} direction="vertical" />
-          <EventCard id={3} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
-          <Gap size={28} direction="vertical" />
-          <EventCard id={4} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
-          <Gap size={28} direction="vertical" />
-          <EventCard id={5} eventName="Cocoa's Beach Cleanup" image={exampleImage} />
-          <Gap size={28} direction="vertical" />
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            events?.map((event, index) => (
+              <Fragment key={event.id}>
+                <EventCard
+                  numberOfParticipants={event.numberOfParticipants}
+                  id={event.id}
+                  date={event.date}
+                  eventName={event.title}
+                  spotsAvailable={event.spotsAvailable}
+                  image={event.pictureUrl}
+                />
+                {index + 1 < events.length && <Gap size={28} direction="vertical" />}
+              </Fragment>
+            ))
+          )}
         </EventListContainer>
       </ScreenContainer>
       <Navigator />

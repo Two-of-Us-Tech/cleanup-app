@@ -1,9 +1,12 @@
 import styled from 'styled-components/native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Toast from 'react-native-toast-message';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from 'styled-components';
+import toastConfig from '../config/toastConfig';
 import StyledScreen from '../components/StyledScreen';
 import Typography from '../components/Typography';
 import Button from '../components/Button';
@@ -11,6 +14,7 @@ import Input from '../components/Input';
 import LinkButton from '../components/LinkButton';
 import ImageSelector from '../components/ImageSelector';
 import i18n from '../config/translation';
+import userRegister from '../stores/userRegister.store';
 
 const StyledContainer = styled.View(() => ({
   alignItems: 'center',
@@ -52,8 +56,42 @@ const validationSchema = Yup.object().shape({
 
 function SignupScreen({ navigation }) {
   const [image, setImage] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { colors } = useTheme();
+  const { user, isLoading, error, register } = userRegister((state) => state);
   const { t } = useTranslation('signUp');
+
+  useEffect(() => {
+    if (user) {
+      Toast.show({
+        type: 'default',
+        props: {
+          icon: 'ios-checkbox',
+          label: t('success'),
+          iconColor: colors.primary,
+          onHide: () => Toast.hide(),
+        },
+      });
+
+      setTimeout(() => {
+        navigation.navigate('Login');
+      }, 2500);
+    }
+  }, [user, navigation, colors.primary, t]);
+
+  useEffect(() => {
+    if (error) {
+      Toast.show({
+        type: 'default',
+        props: {
+          icon: 'ios-close-circle',
+          label: t('error'),
+          textColor: 'oranged',
+          iconColor: colors.oranged,
+          onHide: () => Toast.hide(),
+        },
+      });
+    }
+  }, [error, navigation, colors.oranged, t]);
 
   const renderInput = (placeholder, key, icon, formikProps, isPassword) => {
     const { handleBlur, handleChange, values, errors, touched } = formikProps;
@@ -77,20 +115,22 @@ function SignupScreen({ navigation }) {
 
   const getFieldError = (key, errors, touched) => (touched[key] ? errors[key] : '');
 
-  // TODO - Call the actual API
-  const onSubmit = () => {
-    setIsSubmitting(true);
-    setTimeout(() => {
-      navigation.navigate('EventList');
-      setIsSubmitting(false);
-    }, 2000);
+  const onSubmit = async ({ email, password, phoneNumber, name }) => {
+    register({ email, password, phoneNumber, name, image });
   };
 
   return (
     <StyledScreen variant="secondary" showBackButton>
+      <Toast config={toastConfig} />
       <StyledContainer>
+        {/* TODO - Change this */}
         <Typography>Sign up by filling the form bellow</Typography>
-        <ImageSelector image={image} onChange={(updatedImage) => setImage(updatedImage)} />
+        <ImageSelector
+          image={image?.uri || null}
+          onChange={(updatedImage) => {
+            setImage(updatedImage);
+          }}
+        />
         <KeyboardAwareScrollView style={{ width: '100%' }}>
           <FormContainer>
             <Formik
@@ -124,7 +164,7 @@ function SignupScreen({ navigation }) {
                     true
                   )}
                   {renderInput(t('signUp:phoneNumber'), 'phoneNumber', 'call', formikProps)}
-                  <StyledButton onPress={handleSubmit} withShadow loading={isSubmitting}>
+                  <StyledButton onPress={handleSubmit} withShadow loading={isLoading}>
                     Sign Up
                   </StyledButton>
                   <StyledLink onPress={() => navigation.navigate('Login')} hideBorder>

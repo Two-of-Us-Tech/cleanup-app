@@ -38,28 +38,32 @@ const ImageHolder = styled.View(() => ({
   background: '#ccc',
 }));
 
-function ImageSelector({ onChange, image }) {
+function ImageSelector({ onChange, image, editMode = true }) {
   const { colors } = useTheme();
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
+      allowsMultipleSelection: false,
       aspect: [4, 3],
       quality: 1,
     });
 
     if (!result.canceled) {
-      onChange(result.assets[0].uri);
+      const [resultImage] = result.assets;
+      onChange(resultImage);
     }
   };
 
   return (
     <ImageContainer>
       {image ? <UserImage source={{ uri: image }} /> : <ImageHolder />}
-      <StyledTouchable onPress={pickImage}>
-        <Ionicons name="camera-outline" size={18} color={colors.white} />
-      </StyledTouchable>
+      {editMode && (
+        <StyledTouchable onPress={pickImage}>
+          <Ionicons name="camera-outline" size={18} color={colors.white} />
+        </StyledTouchable>
+      )}
     </ImageContainer>
   );
 }

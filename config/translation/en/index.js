@@ -11,6 +11,7 @@ import myEvents from './myEventsEN.json';
 import myProfile from './myProfileEN.json';
 import resetPassword from './resetPasswordEN.json';
 import signUp from './signUpEN.json';
+import eventCard from './eventCardEN.json';
 
 export default {
   home,
@@ -26,4 +27,5 @@ export default {
   myProfile,
   resetPassword,
   signUp,
+  eventCard,
 };

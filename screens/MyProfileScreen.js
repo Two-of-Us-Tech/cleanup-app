@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled, { useTheme } from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -8,6 +7,7 @@ import StyledScreen from '../components/StyledScreen';
 import Typography from '../components/Typography';
 import ImageSelector from '../components/ImageSelector';
 import Gap from '../components/Gap';
+import authStore from '../stores/auth.store';
 
 const ScreenContainer = styled.SafeAreaView`
   flex: 1;
@@ -32,14 +32,23 @@ const ItemDivider = styled.View`
 `;
 
 function MyProfileScreen() {
-  const [image, setImage] = useState(null);
+  const logout = authStore((state) => state.logout);
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const { profilePictureUrl, name } = authStore((state) => state.user);
   const { t } = useTranslation('myProfile');
 
-  const renderListItem = (text, icon, route, isLast = false) => (
+  const renderListItem = (text, icon, route, action, isLast = false) => (
     <>
-      <ItemContainer onPress={() => navigation.navigate(route)}>
+      <ItemContainer
+        onPress={() => {
+          if (route) {
+            navigation.navigate(route);
+          } else if (action) {
+            action();
+          }
+        }}
+      >
         <Ionicons name={icon} size={24} color={colors.opaqueDark} />
         <Gap size={12} />
         <Typography color="opaqueDark" fontSpacing="spaced">
@@ -53,15 +62,24 @@ function MyProfileScreen() {
   return (
     <StyledScreen variant="secondary" headerText={t('header')}>
       <ScreenContainer>
-        <ImageSelector image={image} onChange={(updatedImage) => setImage(updatedImage)} />
+        <ImageSelector image={profilePictureUrl} editMode={false} />
         <Gap size={20} direction="vertical" />
-        <Typography>Name Here</Typography>
+        <Typography>{name}</Typography>
         <ListContainer>
           {/* TODO - Should direct to my events  */}
           {renderListItem(t('myEvents'), 'list', 'AccessDenied')}
           {renderListItem(t('aboutTheApp'), 'information-circle-outline', 'About')}
           {renderListItem(t('terms'), 'md-newspaper-outline', 'TermsAndConditions')}
-          {renderListItem(t('logout'), 'exit-outline', 'Home', true)}
+          {renderListItem(
+            t('logout'),
+            'exit-outline',
+            '',
+            () => {
+              logout();
+              navigation.navigate('Home');
+            },
+            true
+          )}
         </ListContainer>
       </ScreenContainer>
       <Navigator />

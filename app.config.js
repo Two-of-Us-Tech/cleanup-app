@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-import-module-exports
 import 'dotenv/config';
 
-const { API_URL } = process.env;
+const { API_URL, CLOUDINARY_API, CLOUDINARY_CLOUD_NAME, CLOUDINARY_PRESET } = process.env;
 
 module.exports = {
   name: 'cleanup',
@@ -17,6 +17,9 @@ module.exports = {
   },
   extra: {
     API_URL,
+    CLOUDINARY_API,
+    CLOUDINARY_CLOUD_NAME,
+    CLOUDINARY_PRESET,
   },
   plugins: [
     [
