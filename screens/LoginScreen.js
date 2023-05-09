@@ -63,7 +63,7 @@ function LoginScreen({ navigation }) {
         },
       });
     }
-  }, [error, navigation, colors.oranged, t]);
+  }, [error, colors.oranged, t]);
 
   return (
     <StyledScreen showBackButton>

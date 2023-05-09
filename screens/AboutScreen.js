@@ -6,7 +6,7 @@ import Typography from '../components/Typography';
 
 const TextContainer = styled.View`
   margin-horizontal: 32px;
-  margintop: ${Platform.OS === 'android' ? '60px' : '0px'};
+  margin-top: ${Platform.OS === 'android' ? '60px' : '0px'};
 `;
 
 const StyledText = styled(Typography)`

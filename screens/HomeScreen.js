@@ -1,10 +1,13 @@
 import styled from 'styled-components/native';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeImageHome from '../assets/images/login-image.png';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
 import LinkButton from '../components/LinkButton';
 import Typography from '../components/Typography';
+import userStore from '../stores/user.store';
 
 const HomeScreenContainer = styled.SafeAreaView(({ theme: { colors } }) => ({
   flex: 1,
@@ -42,6 +45,24 @@ const TextContainer = styled.View(() => ({
 
 function HomeScreen({ navigation }) {
   const { t } = useTranslation('home');
+  const [storedUser, setStoredUser] = useState();
+  const setCachedUser = userStore((store) => store.setCachedUser);
+
+  useEffect(() => {
+    const fetchLoggedUser = async () => {
+      const user = await AsyncStorage.getItem('user');
+      setStoredUser(user);
+    };
+
+    fetchLoggedUser();
+  }, []);
+
+  useEffect(() => {
+    if (storedUser) {
+      setCachedUser(JSON.parse(storedUser));
+      navigation.navigate('MyEvents');
+    }
+  }, [storedUser, navigation, setCachedUser]);
 
   return (
     <HomeScreenContainer>

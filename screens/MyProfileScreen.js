@@ -67,7 +67,7 @@ function MyProfileScreen() {
         <Typography>{name}</Typography>
         <ListContainer>
           {/* TODO - Should direct to my events  */}
-          {renderListItem(t('myEvents'), 'list', 'AccessDenied')}
+          {renderListItem(t('myEvents'), 'list', 'MyEvents')}
           {renderListItem(t('aboutTheApp'), 'information-circle-outline', 'About')}
           {renderListItem(t('terms'), 'md-newspaper-outline', 'TermsAndConditions')}
           {renderListItem(

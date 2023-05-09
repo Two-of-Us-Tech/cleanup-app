@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import API from '../api';
 import eventStore from './event.store';
 
@@ -11,6 +12,9 @@ const emptyState = {
 };
 const userStore = create((set, get) => ({
   ...emptyState,
+  setCachedUser: ({ user, accessToken }) => {
+    set({ user, accessToken });
+  },
   login: async (email, password) => {
     set({ ...emptyState, isLoading: true });
     try {
@@ -19,6 +23,7 @@ const userStore = create((set, get) => ({
         set({ ...emptyState, error: 'Access Denied' });
       } else {
         const { user, accessToken } = await response.json();
+        await AsyncStorage.setItem('user', JSON.stringify({ user, accessToken }));
         set({ ...emptyState, user, accessToken });
       }
     } catch (error) {
@@ -26,6 +31,7 @@ const userStore = create((set, get) => ({
     }
   },
   logout: async () => {
+    await AsyncStorage.removeItem('user');
     set({ ...emptyState });
   },
   joinEvent: async (eventId) => {
