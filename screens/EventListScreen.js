@@ -8,7 +8,7 @@ import Input from '../components/Input';
 import EventCard from '../components/EventCard';
 import Gap from '../components/Gap';
 import Navigator from '../components/Navigator';
-import eventStore from '../stores/event.store';
+import eventListStore from '../stores/eventList.store';
 
 const ScreenContainer = styled.SafeAreaView(() => ({
   flex: 1,
@@ -28,7 +28,7 @@ function EventListScreen() {
   const [searchTerm, setSearchTerm] = useState('');
   const { t } = useTranslation('eventList');
   const [debouncedText] = useDebounce(searchTerm, 1000);
-  const { fetchEvents, events, isLoading } = eventStore((state) => state);
+  const { fetchEvents, events, isLoading } = eventListStore((state) => state);
 
   useEffect(() => {
     if (!events) {

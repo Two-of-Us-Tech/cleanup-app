@@ -51,7 +51,7 @@ function MapScreen({ navigation }) {
       const userPosition = await Location.getCurrentPositionAsync({});
       setUserLocation(userPosition);
     })();
-  }, [setErrorMsg]);
+  }, []);
 
   useEffect(() => {
     if (errorMsg) {

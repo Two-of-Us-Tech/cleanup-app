@@ -2,7 +2,7 @@ import styled, { useTheme } from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 import Toast from 'react-native-toast-message';
-import { Linking, Platform } from 'react-native';
+import { ActivityIndicator, Linking, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import StyledScreen from '../components/StyledScreen';
@@ -56,14 +56,23 @@ const StyledButton = styled(Button)(() => ({
 function EventScreen({ route, navigation }) {
   const { colors } = useTheme();
   const { t } = useTranslation('eventDetail');
-  const events = eventStore((state) => state.events);
-  const { user, joinEvent, isLoading, notifyDataRefresh, removeEvent, error } = userStore(
-    (state) => state
-  );
-  const event = events.find(({ _id }) => _id === route.params.id);
-  const [lat, long] = event.location.coordinates;
 
-  const userHasJoinedEvent = user ? user.events?.some(({ _id }) => _id === event._id) : false;
+  const {
+    event,
+    isLoading,
+    error,
+    isInteracting,
+    joinEvent,
+    dismissEvent,
+    interactionSuccessMessage,
+    interactionErrorMessage,
+    fetchEvent,
+  } = eventStore((state) => state);
+  const { user } = userStore((state) => state);
+  const { params } = route;
+  const [lat, long] = event ? event.location.coordinates : [];
+  const userHasJoinedEvent =
+    user && event ? user.events?.some((eventId) => eventId === event._id) : false;
 
   const onOpenAddress = () => {
     const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
@@ -77,19 +86,11 @@ function EventScreen({ route, navigation }) {
   };
 
   useEffect(() => {
-    if (notifyDataRefresh) {
-      Toast.show({
-        type: 'default',
-        props: {
-          label: t('eventUpdated'),
-          iconColor: colors.primary,
-          onHide: () => Toast.hide(),
-          icon: 'ios-checkbox',
-        },
-      });
-    }
+    fetchEvent(params.id);
+  }, [params.id, fetchEvent]);
 
-    if (error) {
+  useEffect(() => {
+    if (interactionErrorMessage || error) {
       Toast.show({
         type: 'default',
         props: {
@@ -101,7 +102,21 @@ function EventScreen({ route, navigation }) {
         },
       });
     }
-  }, [notifyDataRefresh, error, colors, t]);
+  }, [interactionErrorMessage, colors, t, error]);
+
+  useEffect(() => {
+    if (interactionSuccessMessage) {
+      Toast.show({
+        type: 'default',
+        props: {
+          label: t('eventUpdated'),
+          iconColor: colors.primary,
+          onHide: () => Toast.hide(),
+          icon: 'ios-checkbox',
+        },
+      });
+    }
+  }, [interactionSuccessMessage, colors, t]);
 
   const onJoinEvent = () => {
     if (!user) {
@@ -112,103 +127,113 @@ function EventScreen({ route, navigation }) {
   };
 
   return (
-    <StyledScreen showBackButton={!isLoading} headerText={t('header')}>
+    <StyledScreen showBackButton={!isInteracting} headerText={t('header')}>
       <Toast config={toastConfig} />
-      <ScreenContainer>
-        <ScrollableContent showsVerticalScrollIndicator={false}>
-          <Typography fontSize="regular" font="primaryBold" fontSpacing="spaced">
-            {event.title}
-          </Typography>
-          <ImageContainer source={{ uri: event.pictureUrl }} />
-
-          <Gap size={20} direction="vertical" />
-          <EventItem>
-            <Ionicons name="calendar-outline" size={21} color="black" />
-            <Gap size={10} />
-            <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              {new Date(event.date).toLocaleDateString('default', {
-                month: 'long',
-                day: '2-digit',
-                year: 'numeric',
-              })}
-            </Typography>
-          </EventItem>
-          <Gap size={16} direction="vertical" />
-          <EventItem>
-            <Ionicons name="time-outline" size={21} color="black" />
-            <Gap size={10} />
-            <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              {event.durationTime}
-            </Typography>
-          </EventItem>
-          <Gap size={16} direction="vertical" />
-          <EventItem>
-            <Ionicons name="list-outline" size={21} color="black" />
-            <Gap size={10} />
-            <Typography fontSize="extraSmall" color="oranged" fontSpacing="spaced">
-              {`${event.spotsAvailable} ${t('spots')}`}
-            </Typography>
-          </EventItem>
-          <Gap size={16} direction="vertical" />
-          <EventItem>
-            <Ionicons name="location-sharp" size={21} color="black" />
-            <Gap size={10} />
-            <Typography fontSize="extraSmall" fontSpacing="spaced" onPress={() => onOpenAddress()}>
-              {event.address}
-            </Typography>
-          </EventItem>
-          <MapContainer
-            initialRegion={{
-              latitude: lat,
-              longitude: long,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          >
-            <Marker coordinate={{ latitude: lat, longitude: long }} title={event.title} />
-          </MapContainer>
-          <Typography fontSpacing="spaced" font="primaryBold">
-            {t('about')}
-          </Typography>
-          <Gap size={18} direction="vertical" />
-          <EventItem>
-            <Ionicons name="shirt-outline" size={21} color="black" />
-            <Gap size={10} />
-            <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              {event.clothingType}
-            </Typography>
-          </EventItem>
-          <Gap size={16} direction="vertical" />
-          <EventItem>
-            <Ionicons name="fast-food-outline" size={21} color="black" />
-            <Gap size={10} />
-            <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              {event.foodOptions}
-            </Typography>
-          </EventItem>
-          <Gap size={16} direction="vertical" />
-          <EventItem>
-            <Ionicons name="star-outline" size={21} color="black" />
-            <Gap size={10} />
-            <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
-              {event.experienceRequired}
-            </Typography>
-          </EventItem>
-        </ScrollableContent>
-      </ScreenContainer>
-      {!userHasJoinedEvent ? (
-        <StyledButton withShadow onPress={() => onJoinEvent()} loading={isLoading}>
-          {t('join')}
-        </StyledButton>
+      {isLoading || !event ? (
+        <ActivityIndicator />
       ) : (
-        <StyledButton
-          variant="white"
-          withShadow
-          onPress={() => removeEvent(event._id)}
-          loading={isLoading}
-        >
-          {t('remove')}
-        </StyledButton>
+        <>
+          <ScreenContainer>
+            <ScrollableContent showsVerticalScrollIndicator={false}>
+              <Typography fontSize="regular" font="primaryBold" fontSpacing="spaced">
+                {event.title}
+              </Typography>
+              <ImageContainer source={{ uri: event.pictureUrl }} />
+
+              <Gap size={20} direction="vertical" />
+              <EventItem>
+                <Ionicons name="calendar-outline" size={21} color="black" />
+                <Gap size={10} />
+                <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
+                  {new Date(event.date).toLocaleDateString('default', {
+                    month: 'long',
+                    day: '2-digit',
+                    year: 'numeric',
+                  })}
+                </Typography>
+              </EventItem>
+              <Gap size={16} direction="vertical" />
+              <EventItem>
+                <Ionicons name="time-outline" size={21} color="black" />
+                <Gap size={10} />
+                <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
+                  {event.durationTime}
+                </Typography>
+              </EventItem>
+              <Gap size={16} direction="vertical" />
+              <EventItem>
+                <Ionicons name="list-outline" size={21} color="black" />
+                <Gap size={10} />
+                <Typography fontSize="extraSmall" color="oranged" fontSpacing="spaced">
+                  {`${event.spotsAvailable} ${t('spots')}`}
+                </Typography>
+              </EventItem>
+              <Gap size={16} direction="vertical" />
+              <EventItem>
+                <Ionicons name="location-sharp" size={21} color="black" />
+                <Gap size={10} />
+                <Typography
+                  fontSize="extraSmall"
+                  fontSpacing="spaced"
+                  onPress={() => onOpenAddress()}
+                >
+                  {event.address}
+                </Typography>
+              </EventItem>
+              <MapContainer
+                initialRegion={{
+                  latitude: lat,
+                  longitude: long,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }}
+              >
+                <Marker coordinate={{ latitude: lat, longitude: long }} title={event.title} />
+              </MapContainer>
+              <Typography fontSpacing="spaced" font="primaryBold">
+                {t('about')}
+              </Typography>
+              <Gap size={18} direction="vertical" />
+              <EventItem>
+                <Ionicons name="shirt-outline" size={21} color="black" />
+                <Gap size={10} />
+                <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
+                  {event.clothingType}
+                </Typography>
+              </EventItem>
+              <Gap size={16} direction="vertical" />
+              <EventItem>
+                <Ionicons name="fast-food-outline" size={21} color="black" />
+                <Gap size={10} />
+                <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
+                  {event.foodOptions}
+                </Typography>
+              </EventItem>
+              <Gap size={16} direction="vertical" />
+              <EventItem>
+                <Ionicons name="star-outline" size={21} color="black" />
+                <Gap size={10} />
+                <Typography fontSize="extraSmall" color="opaqueDark" fontSpacing="spaced">
+                  {event.experienceRequired}
+                </Typography>
+              </EventItem>
+            </ScrollableContent>
+          </ScreenContainer>
+          {!userHasJoinedEvent ? (
+            <StyledButton withShadow onPress={() => onJoinEvent()} loading={isInteracting}>
+              {t('join')}
+            </StyledButton>
+          ) : (
+            <StyledButton
+              variant="white"
+              withShadow
+              onPress={() => dismissEvent(event._id)}
+              loading={isInteracting}
+            >
+              {t('remove')}
+            </StyledButton>
+          )}
+        </>
       )}
     </StyledScreen>
   );

@@ -2,8 +2,8 @@
   "header": "Event Details",
   "spots": "Spots Available",
   "about": "About the event",
-  "eventUpdated": "This event has been successfully updated!",
+  "eventUpdated": "This event has been updated successfully!",
   "join": "Join this Event",
   "remove": "Remove this event",
-  "error": "Error while trying to interact with this event."
+  "error": "Error while trying to load this event."
 }

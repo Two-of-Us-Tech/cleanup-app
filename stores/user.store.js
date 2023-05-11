@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import API from '../api';
-import eventStore from './event.store';
 
 const emptyState = {
   user: null,
@@ -10,7 +9,7 @@ const emptyState = {
   error: '',
   notifyDataRefresh: false,
 };
-const userStore = create((set, get) => ({
+const userStore = create((set) => ({
   ...emptyState,
   setCachedUser: ({ user, accessToken }) => {
     set({ user, accessToken });
@@ -33,55 +32,6 @@ const userStore = create((set, get) => ({
   logout: async () => {
     await AsyncStorage.removeItem('user');
     set({ ...emptyState });
-  },
-  joinEvent: async (eventId) => {
-    const { accessToken, user } = get();
-    set({ isLoading: true, error: '' });
-    try {
-      const response = await API.post(`/event/${eventId}/join`, { userId: user._id }, accessToken);
-      if (response.status !== 200) {
-        set({ error: 'Error while trying to join the event', isLoading: false });
-      } else {
-        // Trigger event update
-        const { fetchEvents, events } = eventStore.getState();
-        fetchEvents();
-        user.events?.push(events?.find((event) => event._id === eventId));
-        set({ user, isLoading: false, notifyDataRefresh: true });
-        setTimeout(() => {
-          set({ notifyDataRefresh: false });
-        }, 3000);
-      }
-    } catch (error) {
-      set({ isLoading: false, error: 'Error while trying to join the event' });
-    }
-  },
-  removeEvent: async (eventId) => {
-    const { accessToken, user } = get();
-    set({ isLoading: true, error: '' });
-
-    try {
-      const response = await API.post(
-        `/event/${eventId}/dismiss`,
-        { userId: user._id },
-        accessToken
-      );
-      if (response.status !== 200) {
-        set({ error: 'Error while trying to join the event', isLoading: false });
-      } else {
-        // Trigger event update
-        const { fetchEvents } = eventStore.getState();
-        fetchEvents();
-
-        user.events = user.events?.filter((event) => event._id !== eventId);
-
-        set({ user, isLoading: false, notifyDataRefresh: true });
-        setTimeout(() => {
-          set({ notifyDataRefresh: false });
-        }, 3000);
-      }
-    } catch (error) {
-      set({ isLoading: false, error: 'Error while trying to join the event' });
-    }
   },
 }));
 
