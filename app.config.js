@@ -5,7 +5,7 @@ const { API_URL, CLOUDINARY_API, CLOUDINARY_CLOUD_NAME, CLOUDINARY_PRESET } = pr
 
 module.exports = {
   name: 'cleanup',
-  slug: 'cleanup',
+  slug: 'Cleanup',
   version: '1.0.0',
   orientation: 'portrait',
   icon: './assets/icon.png',
@@ -13,7 +13,7 @@ module.exports = {
   splash: {
     image: './assets/splash.png',
     resizeMode: 'contain',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#A9D5FC',
   },
   extra: {
     API_URL,
@@ -45,7 +45,7 @@ module.exports = {
   android: {
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#FFFFFF',
+      backgroundColor: '#A9D5FC',
     },
   },
   web: {
