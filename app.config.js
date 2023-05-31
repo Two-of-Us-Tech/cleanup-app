@@ -4,6 +4,7 @@ import 'dotenv/config';
 const { API_URL, CLOUDINARY_API, CLOUDINARY_CLOUD_NAME, CLOUDINARY_PRESET } = process.env;
 
 module.exports = {
+  owner: 'tiagoborba-two',
   name: 'cleanup',
   slug: 'Cleanup',
   version: '1.0.0',
@@ -50,5 +51,12 @@ module.exports = {
   },
   web: {
     favicon: './assets/favicon.png',
+  },
+  expo: {
+    extra: {
+      eas: {
+        projectId: 'e0ef7f42-2fbf-4ced-b823-ca88fec254b9',
+      },
+    },
   },
 };
