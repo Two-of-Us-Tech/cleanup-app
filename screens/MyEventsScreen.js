@@ -87,14 +87,15 @@ function MyEventsScreen({ navigation }) {
         </NoEventsLabel>
       ) : (
         sectionEvents.map((event) => {
-          const month = new Date(event.date).toLocaleString('en-us', { month: 'short' });
+          const month = new Date(event.date).getMonth();
           const day = new Date(event.date).getDate();
+
           return (
             <>
               <ItemInfo
                 isEventDue={isEventDue}
                 day={day}
-                month={month}
+                month={t(month)}
                 location={event.address}
                 title={event.title}
                 onPress={() => navigation.navigate('Event', { id: event._id })}

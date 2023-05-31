@@ -67,6 +67,7 @@ function EventScreen({ route, navigation }) {
     interactionSuccessMessage,
     interactionErrorMessage,
     fetchEvent,
+    cleanMessageState,
   } = eventStore((state) => state);
   const { user } = userStore((state) => state);
   const { params } = route;
@@ -127,9 +128,30 @@ function EventScreen({ route, navigation }) {
     }
   };
 
+  const renderInteractiveButtons = () => {
+    if (new Date(event.date) < new Date()) {
+      return null;
+    }
+
+    return !userHasJoinedEvent ? (
+      <StyledButton withShadow onPress={() => onJoinEvent()} loading={isInteracting}>
+        {t('join')}
+      </StyledButton>
+    ) : (
+      <StyledButton
+        variant="white"
+        withShadow
+        onPress={() => dismissEvent(event._id)}
+        loading={isInteracting}
+      >
+        {t('remove')}
+      </StyledButton>
+    );
+  };
+
   return (
     <StyledScreen showBackButton={!isInteracting} headerText={t('header')}>
-      <Toast config={toastConfig} />
+      <Toast config={toastConfig} onHide={() => cleanMessageState()} />
       {isLoading || !event ? (
         <ActivityIndicator />
       ) : (
@@ -220,20 +242,7 @@ function EventScreen({ route, navigation }) {
               </EventItem>
             </ScrollableContent>
           </ScreenContainer>
-          {!userHasJoinedEvent ? (
-            <StyledButton withShadow onPress={() => onJoinEvent()} loading={isInteracting}>
-              {t('join')}
-            </StyledButton>
-          ) : (
-            <StyledButton
-              variant="white"
-              withShadow
-              onPress={() => dismissEvent(event._id)}
-              loading={isInteracting}
-            >
-              {t('remove')}
-            </StyledButton>
-          )}
+          {renderInteractiveButtons()}
         </>
       )}
     </StyledScreen>

@@ -22,6 +22,7 @@ const eventStore = create((set) => ({
       set({ ...emptyState, error: 'There was an error while trying to fetch the vents ' });
     }
   },
+  cleanMessageState: () => set({ interactionSuccessMessage: '', interactionErrorMessage: '' }),
   joinEvent: async (eventId) => {
     set({ isInteracting: true, interactionSuccessMessage: '', interactionErrorMessage: '' });
     try {
