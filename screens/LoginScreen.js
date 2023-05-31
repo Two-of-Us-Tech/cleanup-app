@@ -5,6 +5,7 @@ import Toast from 'react-native-toast-message';
 import { useTheme } from 'styled-components';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import { useIsFocused, useRoute } from '@react-navigation/native';
 import Button from '../components/Button';
 import Gap from '../components/Gap';
 import Input from '../components/Input';
@@ -41,14 +42,16 @@ const validationSchema = Yup.object().shape({
 
 function LoginScreen({ navigation }) {
   const { t } = useTranslation('login');
+  const isFocused = useIsFocused();
   const { colors } = useTheme();
+  const route = useRoute();
   const { login, user, isLoading, error } = userStore((state) => state);
 
   useEffect(() => {
-    if (user) {
+    if (user && isFocused) {
       navigation.navigate('MyEvents');
     }
-  }, [user, navigation]);
+  }, [user, navigation, route, isFocused]);
 
   useEffect(() => {
     if (error) {

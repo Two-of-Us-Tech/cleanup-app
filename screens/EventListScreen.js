@@ -3,6 +3,7 @@ import { useState, useEffect, Fragment } from 'react';
 import { ActivityIndicator, Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useDebounce } from 'use-debounce';
+import { useIsFocused } from '@react-navigation/native';
 import StyledScreen from '../components/StyledScreen';
 import Input from '../components/Input';
 import EventCard from '../components/EventCard';
@@ -26,15 +27,16 @@ const EventListContainer = styled.ScrollView(() => ({
 
 function EventListScreen() {
   const [searchTerm, setSearchTerm] = useState('');
+  const isFocused = useIsFocused();
   const { t } = useTranslation('eventList');
   const [debouncedText] = useDebounce(searchTerm, 1000);
   const { fetchEvents, events, isLoading } = eventListStore((state) => state);
 
   useEffect(() => {
-    if (!events) {
+    if (isFocused) {
       fetchEvents('');
     }
-  }, [fetchEvents, events]);
+  }, [fetchEvents, isFocused]);
 
   useEffect(() => {
     fetchEvents(debouncedText);

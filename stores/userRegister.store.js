@@ -34,7 +34,6 @@ const userRegister = create((set) => ({
         set({ ...emptyState, user });
       }
     } catch (error) {
-      console.log(error);
       set({ ...emptyState, error: 'Error while trying to register the user' });
     }
   },

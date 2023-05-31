@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import Typography from './Typography';
 import Gap from './Gap';
 
-const ItemInfoContainer = styled.View(({ theme: { colors } }) => ({
+const ItemInfoContainer = styled.TouchableOpacity(({ theme: { colors } }) => ({
   flexDirection: 'row',
   width: '100%',
   background: '#fff',
@@ -30,6 +30,7 @@ const ItemDateContainer = styled.View`
 const LocationContainer = styled.View`
   flex-direction: row;
   align-items: center;
+  padding-right: 10px;
 `;
 
 const ItemDetailsContainer = styled.View`
@@ -44,12 +45,12 @@ const StyledTitle = styled(Typography)`
   width: 70%;
 `;
 
-function ItemInfo({ day, month, title, location, isEventDue }) {
+function ItemInfo({ day, month, title, location, isEventDue, onPress }) {
   const {
     colors: { darkTransparent },
   } = useTheme();
   return (
-    <ItemInfoContainer>
+    <ItemInfoContainer onPress={onPress}>
       <ItemDateContainer $isDue={isEventDue}>
         <Typography font="primaryBold">{day}</Typography>
         <Typography fontSize="small">{month}</Typography>
@@ -60,9 +61,14 @@ function ItemInfo({ day, month, title, location, isEventDue }) {
         </StyledTitle>
         <Gap direction="vertical" size={12} />
         <LocationContainer>
-          <Ionicons name="location-outline" size={16} color={darkTransparent} />
+          <Ionicons
+            name="location-outline"
+            size={16}
+            color={darkTransparent}
+            style={{ marginRight: 10 }}
+          />
           <Typography fontSize="extraSmall" color="darkTransparent">
-            {location}
+            {`${location.slice(0, 40)}...`}
           </Typography>
         </LocationContainer>
       </ItemDetailsContainer>

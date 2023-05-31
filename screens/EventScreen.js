@@ -71,6 +71,7 @@ function EventScreen({ route, navigation }) {
   const { user } = userStore((state) => state);
   const { params } = route;
   const [lat, long] = event ? event.location.coordinates : [];
+
   const userHasJoinedEvent =
     user && event ? user.events?.some((eventId) => eventId === event._id) : false;
 

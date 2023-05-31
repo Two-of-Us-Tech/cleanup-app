@@ -11,8 +11,15 @@ const emptyState = {
 };
 const userStore = create((set) => ({
   ...emptyState,
-  setCachedUser: ({ user, accessToken }) => {
+  setCachedUser: async ({ user, accessToken }) => {
     set({ user, accessToken });
+    const response = await API.post('/auth/validate', { userId: user._id, accessToken });
+    if (response.status !== 200) {
+      set({ ...emptyState, error: 'Access Denied' });
+    } else {
+      const { user: refreshedUser, accessToken: newAccessToken } = await response.json();
+      set({ user: refreshedUser, accessToken: newAccessToken });
+    }
   },
   login: async (email, password) => {
     set({ ...emptyState, isLoading: true });

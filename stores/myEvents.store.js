@@ -1,26 +1,23 @@
 import { create } from 'zustand';
 import API from '../api';
+import userStore from './user.store';
 
 const emptyState = {
   events: null,
   isLoading: false,
   error: '',
 };
-const eventList = create((set) => ({
+
+const myEventsStore = create((set) => ({
   ...emptyState,
-  fetchEvents: async (eventName) => {
+  fetchEvents: async () => {
     set({ isLoading: true });
     try {
-      let query = '';
-      const dateToString = new Date().toLocaleDateString('EN-us');
-
-      if (eventName) {
-        query = `?title=${eventName}&date=${dateToString}`;
-      } else {
-        query = `?date=${dateToString}`;
-      }
-
-      const response = await API.get(`/event${query}`);
+      const {
+        user: { _id: userId },
+        accessToken,
+      } = userStore.getState();
+      const response = await API.get(`/user/${userId}/events`, accessToken);
       const json = await response.json();
       set({ ...emptyState, events: json });
     } catch (error) {
@@ -29,4 +26,4 @@ const eventList = create((set) => ({
   },
 }));
 
-export default eventList;
+export default myEventsStore;
