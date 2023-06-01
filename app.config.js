@@ -4,7 +4,6 @@ import 'dotenv/config';
 const { API_URL, CLOUDINARY_API, CLOUDINARY_CLOUD_NAME, CLOUDINARY_PRESET } = process.env;
 
 module.exports = {
-  owner: 'tiagoborba-two',
   name: 'cleanup',
   slug: 'Cleanup',
   version: '1.0.0',
@@ -21,6 +20,10 @@ module.exports = {
     CLOUDINARY_API,
     CLOUDINARY_CLOUD_NAME,
     CLOUDINARY_PRESET,
+    eas: {
+      projectId: '0ddbbcbe-e1c9-4401-baea-790ee71d14c6',
+      slug: 'Cleanup',
+    },
   },
   plugins: [
     [
@@ -42,8 +45,10 @@ module.exports = {
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: true,
+    bundleIdentifier: 'com.twoustech.cleanup',
   },
   android: {
+    package: 'com.twoustech.cleanup',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#A9D5FC',
@@ -51,12 +56,5 @@ module.exports = {
   },
   web: {
     favicon: './assets/favicon.png',
-  },
-  expo: {
-    extra: {
-      eas: {
-        projectId: 'e0ef7f42-2fbf-4ced-b823-ca88fec254b9',
-      },
-    },
   },
 };
