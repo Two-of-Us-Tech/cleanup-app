@@ -16,6 +16,7 @@ const ScreenContainer = styled.SafeAreaView(() => ({
   marginHorizontal: 20,
   ...(Platform.OS === 'android' && {
     marginTop: 30,
+    marginBottom: 20,
   }),
 }));
 

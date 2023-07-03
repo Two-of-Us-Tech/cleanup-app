@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import StyledScreen from '../components/StyledScreen';
 import Typography from '../components/Typography';
 
-const TextContainer = styled.View`
-  margin-horizontal: 32px;
-  margin-top: ${Platform.OS === 'android' ? '60px' : '0px'};
+const TextContainer = styled.ScrollView`
+  margin-horizontal: 30px;
+  margin-top: ${Platform.OS === 'android' ? '40px' : '0px'};
+  margin-bottom: 20px;
 `;
 
 const StyledText = styled(Typography)`
